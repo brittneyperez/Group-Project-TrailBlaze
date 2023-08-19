@@ -1,14 +1,20 @@
-Tripbud - Maps App
+Group Four Project
 
-Name: Group Four - Adrian Pena, Brittney Perez, Ibrahim Salir, Tristan Trinh
+Names: Adrian Pena, Brittney Perez, Ibrahim Salir, Tristan Trinh
 
 Stack: Python/Flask
 
-GitHub Repo link: 
+GitHub Repo link: https://github.com/brittneyperez/Group-Project-TrailBlaze
 
-Project name: Tripbud
+Project name: TrailBlaze
 
-Project description:
+Project description: 
+
+1. The project "TrailBlaze" is a maps and social media application that enables users to design personalized maps and share them with their friends. Users have the freedom to generate multiple maps according to their preferences. 
+
+2. Initially, these maps are set to be private, but users have the option to make a copy of them for others to utilize for navigation purposes. In addition to its mapping capabilities, the app incorporates social media features. 
+
+3. Users can create posts, optionally accompanied by images, and engage in discussions by commenting on posts made by other users.
 
 ---
 

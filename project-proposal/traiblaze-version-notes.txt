@@ -1,1 +1,4 @@
 0.1 - Starting Point...
+
+Bri - Sat 19 Aug 2023
+Finished project proposal .txt file as well as general wireframe and schema of TrailBlaze.
