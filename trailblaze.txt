@@ -1,4 +1,4 @@
-Tripbud - Maps App
+trailblaze - Maps App
 
 Name: Group Four - Adrian Pena, Brittney Perez, Ibrahim Salir, Tristan Trinh
 
@@ -6,7 +6,7 @@ Stack: Python/Flask
 
 GitHub Repo link: 
 
-Project name: Tripbud
+Project name: trailblaze
 
 Project description:
 
