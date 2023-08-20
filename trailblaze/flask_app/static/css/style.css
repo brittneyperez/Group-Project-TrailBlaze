@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    height: 25px;
+}
+
+body {
+    background: linear-gradient(to left top, #a6b29f, #1c694b);
+    height: 100%;
+    font-size: 1rem;
+    /* font-family: Palatino Linotype, Georgia, Times, "Times New Roman", serif; */
+}
