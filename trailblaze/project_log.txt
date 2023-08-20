@@ -22,3 +22,12 @@ Ibrahim - aug20- 2:13pm
 put an 'env-trailblaze' folder into the main directory; this way when we start working on the project we just have to type 'source env-trailblaze/bin/activate' in terminal to start the virtual environment. 
 updated requirements.txt accordingly, you can install all of the dependencies by typing 'pip install -r requirements.txt' in the terminal after getting into the virtual env. 
 changed the default port to 8000 since we have 2 mac users, make sure you go to localhost:8000 after you run the server
+
+Bri - 20 Aug, 2:30pm
+- Added initial styling to registration page (index.html) and is ready for implementing validations.
+- Added controller users.py to manage user-specific tasks and routes.
+- Branch: bri-index-styling
+
+Bri - 20 Aug, 3:30pm
+- pushed styles to main branch
+- currently working on Login page

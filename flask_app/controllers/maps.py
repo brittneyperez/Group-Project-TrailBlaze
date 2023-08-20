@@ -3,9 +3,10 @@ from flask import render_template, redirect, request, session, flash
 from flask_app.models.map_model import Map, Marker
 from flask_app.models.user_model import User
 
-@app.route('/')
-def index():
-    return render_template('base.html')
+# ! Route established in users.py
+# @app.route('/')
+# def index():
+#     return render_template('base.html')
 
 @app.route('/maps')
 def initmaps():
