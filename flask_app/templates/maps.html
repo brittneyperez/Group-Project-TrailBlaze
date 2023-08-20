@@ -1,2 +1,50 @@
 {% extends "base.html" %}
+<<<<<<< Updated upstream
 {% block content %}
+=======
+
+
+
+
+{% block content %}
+<h1>maps</h1>
+<style>
+    #buttonsarray{
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    transform: translate(25vw,12.5vh);
+    height: 40vh;
+    width: 50vw;
+    background-color: #00000066;
+    /* align-self: center; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    }
+</style>
+<div>
+
+    <div id="map" style="height: 500px;"></div>
+    <div id="buttonsarray">
+        <a href="/newmap"><input type="button" class="btn btn-secondary" value="New Map" > </a>
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Existing Maps
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </div>
+</div>
+<script>
+var userlong = {{data.lng}}
+var userlat = {{data.lat}}
+</script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/maps.js')}}"></script>
+{% endblock %}
+
+>>>>>>> Stashed changes
