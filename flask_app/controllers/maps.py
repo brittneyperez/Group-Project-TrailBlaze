@@ -9,11 +9,11 @@ def index():
 
 @app.route('/maps')
 def initmaps():
-    if 'user_id' not in session:
-        return redirect('/')
-    user = User.get_user_by_id({'id': session['user_id']})
-    maps = Map.get_all_maps_by_user({'user_id': session['user_id']})
-    return render_template('maps.html', user=user, maps=maps)
+    # if 'user_id' not in session:
+    #     return redirect('/')
+    # user = User.get_user_by_id({'id': session['user_id']})
+    # maps = Map.get_all_maps_by_user({'user_id': session['user_id']})
+    return render_template('maps.html')
 
 @app.route('/maps/<int:map_id>')
 def show_map(map_id):
