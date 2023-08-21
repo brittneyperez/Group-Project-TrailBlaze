@@ -5,6 +5,9 @@ function get_user_loc(){
     return userlat, userlong;
 }
 let map, infoWindow;
+let markers = [];
+let markerListElement;
+let autocomplete;
 
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
@@ -20,53 +23,156 @@ async function initMap() {
     title: "Your Location",
   });
 
+  markerListElement = document.getElementById("markerList");
+
+  google.maps.importLibrary("places").then(() => {
+    const locationInput = document.getElementById("locationInput");
+    autocomplete = new google.maps.places.Autocomplete(locationInput);
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) {
+        return;
+      }
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+    });
+
+    locationInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        performAutocompleteSearch(locationInput.value);
+      }
+  });
+  });
+
 
   map.addListener("click", (event) => {
     closeInfoWindow(); 
     openInfoWindow(event.latLng); 
   });
 }
+function performAutocompleteSearch(query) {
+  if (autocomplete && query.trim() !== "") {
+    const autocompleteService = new google.maps.places.AutocompleteService();
+    autocompleteService.getPlacePredictions({ input: query }, (predictions, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && predictions && predictions.length > 0) {
+        const placeService = new google.maps.places.PlacesService(map);
+        placeService.getDetails({ placeId: predictions[0].place_id }, (result, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK && result.geometry) {
+            map.setCenter(result.geometry.location);
+            map.setZoom(14);
 
-function openInfoWindow(location) {
-  if (!infoWindow) {
-    infoWindow = new google.maps.InfoWindow({
-      content: getInfoWindowContent(location),
+            const confirmButton = document.querySelector("#infoWindowConfirmButton");
+            if (confirmButton) {
+              confirmButton.click();
+            }
+          }
+        });
+      }
     });
-
-    infoWindow.addListener("closeclick", () => {
-      infoWindow = null; 
-    });
-
-    infoWindow.setPosition(location); 
-    infoWindow.open(map); 
   }
 }
+
+
+
+
 
 function getInfoWindowContent(location) {
   return `
     <div>
       <p>Do you want to add a marker at this location?</p>
-      <button onclick="addMarker(${location.lat()}, ${location.lng()})">Add Marker</button>
+      <p>Address: <span id="address"></span></p>
+      <button id="infoWindowConfirmButton" onclick="confirmAddMarker(${location.lat()}, ${location.lng()},  document.getElementById('address').textContent)">Add Marker</button>
       <button onclick="closeInfoWindow()">Cancel</button>
     </div>
   `;
 }
 
-function addMarker(lat, lng) {
-  new google.maps.Marker({
-    position: { lat, lng },
-    map: map,
-    title: "Custom Marker",
+function get_address_from_latlng(lat, lng, callback) {
+  var geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(lat, lng);
+  
+  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+    if (status !== google.maps.GeocoderStatus.OK) {
+      alert(status);
+      callback(null); // Pass null if an error occurred
+    }
+    if (status == google.maps.GeocoderStatus.OK) {
+      var address = (results[0].formatted_address);
+      console.log(address);
+      callback(address); // Pass the address to the callback
+    }
   });
-  closeInfoWindow();
 }
 
+async function openInfoWindow(location) {
+  infoWindow = new google.maps.InfoWindow({
+    content: getInfoWindowContent(location),
+  });
+
+  infoWindow.addListener("closeclick", () => {
+    closeInfoWindow();
+  });
+
+  infoWindow.setPosition(location); // Set the position of the info window
+  infoWindow.open(map); // Open the info window
+
+
+
+  // Retrieve and set the address in the info window
+  get_address_from_latlng(location.lat(), location.lng(), (address) => {
+    const addressElement = document.getElementById("address");
+    if (addressElement && address) {
+      addressElement.textContent = address;
+      
+    }
+  });
+}
+function confirmAddMarker(lat,lng, address) {
+  addMarker(lat,lng, address);
+  closeInfoWindow();
+  updateMarkerList();
+}
+
+function addMarker(lat, lng, title) {
+  const marker = new google.maps.Marker({
+    position: { lat, lng },
+    map: map,
+    title: title,
+  });
+  markers.push(marker);
+}
+
+function updateMarkerList() {
+  if (markerListElement) {
+    markerListElement.innerHTML = markers
+    .map((marker, index) => `<p>Marker ${index + 1}: ${marker.getTitle()}</p>`)
+    .join("");
+    console.log(markerListElement.innerHTML);
+}
+}
 function closeInfoWindow() {
   if (infoWindow) {
     infoWindow.close();
     infoWindow = null;
   }
 }
+
+function clearMarkers() { 
+  markers.forEach((marker) => marker.setMap(null));
+  markers = [];
+  updateMarkerList();
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markerListElement.innerHTML = "";
+}
+
+// bind the clearMarkers and deleteMarkers functions to the buttons
+document.getElementById("clearMarkers").addEventListener("click", clearMarkers);
+document.getElementById("deleteMarkers").addEventListener("click", deleteMarkers);
 
 google.maps.importLibrary("geometry", "drawing").then(() => {
   initMap();
