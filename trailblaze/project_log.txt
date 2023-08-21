@@ -31,3 +31,11 @@ Bri - 20 Aug, 2:30pm
 Bri - 20 Aug, 3:30pm
 - pushed styles to main branch
 - currently working on Login page
+
+Adrian - 20 Aug, 11:32pm
+- Added registration and login validations
+- Added form action route in registration and login pages
+- Redirect from registration and login to dashboard
+- Removed 'about_me' for user registration and login since the 'about_me' can be Null. Caused db error preventing registraion/login
+- User table fields updated to NN except for 'about_me'; UQ selected for email
+- Branch: test_branch
