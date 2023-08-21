@@ -1,8 +1,8 @@
 from flask_app import app
 from flask import render_template, redirect, request, session
-# from flask_app.models.user import User
-# from flask_bcrypt import Bcrypt
-# bcrypt = Bcrypt
+from flask_app.models.user_model import User
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt(app)
 
 
 @app.route('/')
@@ -17,8 +17,16 @@ def registration_page():
     #     return redirect('/u/dashboard')
     return render_template('index.html')
 
-# POST ROUTE
+# POST ROUTE -------------------
 
+@app.route('/register/user', methods = ['POST'])
+def create_user():
+    if not User.validate_user(request.form):
+        print('FAILED USER VALIDATION')
+        return redirect('/register')
+    user_id = User.create_user(request.form)
+    session['user_id'] = user_id
+    return redirect('/user/dashboard')
 
 # * LOGIN -------------------
 
@@ -28,7 +36,30 @@ def login_page():
     #     return redirect('/u/dashboard')
     return render_template('login-page.html')
 
-# POST ROUTE
+# POST ROUTE ----------------
 
-# HOME --------------------
+@app.route('/login/user', methods = ['POST'])
+def login_user():
+    user_in_db = User.find_email(request.form)
+    if not user_in_db:
+        print('FAILED LOGIN VALIDATION')
+        return redirect('/login')
+    if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
+        print('FAILED HASH PASSWORD')
+        return redirect('/login')
+    return redirect('/user/dashboard')
+
+# * HOME --------------------
+
+@app.route('/user/dashboard')
+def dashboard():
+    # if 'user_id' in session:
+    #     return redirect('/u/dashboard')
+    return render_template('dashboard.html')
+
 # * LOGOUT ------------------
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
