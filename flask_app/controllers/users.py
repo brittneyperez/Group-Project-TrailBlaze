@@ -19,6 +19,16 @@ def registration_page():
 
 # POST ROUTE
 
+
 # * LOGIN -------------------
-# * HOME --------------------
+
+@app.route('/login')
+def login_page():
+    # if 'user_id' in session:
+    #     return redirect('/u/dashboard')
+    return render_template('login-page.html')
+
+# POST ROUTE
+
+# HOME --------------------
 # * LOGOUT ------------------
