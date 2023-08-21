@@ -60,6 +60,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#env
+env-trailblaze/
+
+# Python
+__pycache__/
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos
 
 # add environment
