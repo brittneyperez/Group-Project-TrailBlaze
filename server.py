@@ -1,5 +1,5 @@
 from flask_app import app
-from flask_app.controllers import maps, users
+from flask_app.controllers import maps, users, posts
 
 
 if __name__ == '__main__':

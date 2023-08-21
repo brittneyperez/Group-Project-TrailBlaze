@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block title %}Dashboard{% endblock %}
+
+{% block maps_header %}
+<header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
+    <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
+    <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
+        <a href="/user/dashboard" class="mb-0 text-white fw-bold text-decoration-none">Dashboard</a>
+        <a href="/maps" class="mb-0 text-secondary fw-medium text-decoration-none">Maps</a>
+        <a href="#" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
+        <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <h2>Create a New Post</h2>
+    <form action="/user/submit_post" method="post">
+        <!-- Add form fields for post title and content -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Post Title</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Post Content</label>
+            <textarea class="form-control" id="content" name="content" rows=""></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload Image (Optional)</label>
+            <input type="file" class="form-control" id="image" name="image">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+</div>
+{% endblock %}
