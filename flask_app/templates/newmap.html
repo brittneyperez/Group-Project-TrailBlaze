@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+<h1>maps</h1>
+<style>
+    #map{
+        height: 500px;
+        width: 500px;
+
+    }
+</style>
+<div>
+
+    <div id="map" style="height: 500px;"></div>
+    <div id="markers">
+        
+    </div>
+</div>
+<script>
+var userlong = {{data.lng}}
+var userlat = {{data.lat}}
+</script>
+<script type="text/javascript" src="{{url_for('static', filename = 'js/newmap.js')}}"></script>
+{% endblock %}
+

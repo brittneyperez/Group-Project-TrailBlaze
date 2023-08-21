@@ -61,8 +61,17 @@ $RECYCLE.BIN/
 *.lnk
 
 #env
+env-trailblaze/
 
-env-trailblaze
-
+# Python
+__pycache__/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos
+
+# add environment
+
+.env
+
+# Byte-compiled / optimized / DLL files
+__pycache__
+*.py[cod]
