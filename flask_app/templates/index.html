@@ -19,6 +19,17 @@
                     <p class="text-secondary fw-semibold mb-1">New here?</p>
                     <h3 class="fw-bold mb-4">Register</h3>
                     <!--  -->
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
                     <form action="/register/user" method="POST">
                         <!-- Email Input -->
                         <div id="Email_Input__Flex_Div" class="form-group row px-3 mb-3">

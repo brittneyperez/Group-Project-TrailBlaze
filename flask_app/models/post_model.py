@@ -5,7 +5,7 @@ from flask_app.models.user_model import User
 
 
 class Posts:
-    my_db = "trailblazer"
+    my_db = "trailblaze_schema"
     def __init__(self, post_data):
         self.id = post_data['id']
         self.title = post_data['title']
@@ -57,3 +57,14 @@ class Posts:
     def delete_post(cls, data):
         query = "DELETE FROM posts WHERE posts.id = %(id)s;"
         return connectToMySQL(cls.my_db).query_db(query, data)
+
+    @staticmethod
+    def validate_post(post_data):
+        is_valid = True
+        if len(post_data['title']) < 3:
+            flash("Title must be at least 3 characters")
+            is_valid = False
+        if len(post_data['text_content']) < 5:
+            flash("Text content must be at least 5 characters")
+            is_valid = False
+        return is_valid
