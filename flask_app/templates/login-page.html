@@ -19,6 +19,21 @@
                     <!-- <p class="text-secondary fw-semibold mb-1">New here?</p> -->
                     <h3 class="fw-bold mb-4">Login</h3>
                     <!--  -->
+                    {% with messages = get_flashed_messages(with_categories = true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == 'category6' %}
+                                    <p class="text-light text-center bg-danger rounded-4 mt-1">{{ message }}</p>
+                                {% endif %}
+                                {% if category == 'category5' %}
+                                    <p class="text-light text-center bg-danger rounded-4 mt-1">{{ message }}</p>
+                                {% endif %}
+                                {% if category == 'category7' %}
+                                    <p class="text-light text-center bg-danger rounded-4 mt-1">{{ message }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                     <form action="/login/user" method = 'post'>
                         <!-- Email Input -->
                         <div id="Email_Input__Flex_Div" class="form-group row px-3 mb-3">

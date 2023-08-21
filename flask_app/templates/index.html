@@ -24,23 +24,59 @@
                         <div id="Email_Input__Flex_Div" class="form-group row px-3 mb-3">
                             <div class="col">
                                 <input type="email" name="email" placeholder="Email" class="form-control">
+                                {% with messages = get_flashed_messages(with_categories = true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            {% if category == 'category2' %}
+                                                <p class="text-light text-center bg-danger rounded-4 mt-1">{{ message }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
                             </div>
                         </div>
                         <!-- Username Input -->
                         <div id="Username_Input__Flex_Div" class="form-group row px-3 mb-3">
                             <div class="col">
                                 <input type="text" name="username" placeholder="Username" class="form-control">
+                                    {% with messages = get_flashed_messages(with_categories = true) %}
+                                        {% if messages %}
+                                            {% for category, message in messages %}
+                                                {% if category == 'category4' %}
+                                                    <p class="text-light text-center bg-danger rounded-4 mt-1">{{ message }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
                             </div>
                         </div>
                         <!-- Password Input -->
                         <div id="Password_Input__Flex_Div" class="form-group row px-3 mb-3">
                             <div class="col">
                                 <input type="password" name="password" placeholder="Password" class="form-control">
+                                    {% with messages = get_flashed_messages(with_categories = true) %}
+                                        {% if messages %}
+                                            {% for category, message in messages %}
+                                                {% if category == 'category3' %}
+                                                    <p class="text-light text-center bg-danger rounded-4 mt-1">{{ message }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
                             </div>
                         </div>
                         <div id="Email_Input__Flex_Div" class="form-group row px-3 mb-3">
                             <div class="col">
                                 <input type="password" name="confirm" placeholder="Confirm Password" class="form-control">
+                                    {% with messages = get_flashed_messages(with_categories = true) %}
+                                        {% if messages %}
+                                            {% for category, message in messages %}
+                                                {% if category == 'category1' %}
+                                                    <p class="text-light text-center bg-danger rounded-4 mt-1">{{ message }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
                             </div>
                         </div>
                         <div class="col">
