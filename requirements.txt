@@ -7,6 +7,7 @@ Flask==2.3.2
 Flask-Bcrypt==1.0.1
 flask-googlemaps==0.4.1
 ghp-import==2.1.0
+googlemaps==4.10.0
 htmlmin==0.1.12
 idna==3.4
 itsdangerous==2.1.2

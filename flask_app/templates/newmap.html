@@ -9,13 +9,32 @@
     #map{
         height: 500px;
         width: 500px;
-
+    }
+    #mapwrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    #buttonarray{
+        height: 200px;
+    }
+    .marker-list{
+        height: 500px;
+        width: 500px;
+        overflow-y: scroll;
+        background-color: rgba(240, 248, 255, 0.26);
     }
 </style>
-<div>
+<div id="mapwrapper">
 
     <div id="map" style="height: 500px;"></div>
-    <div id="markers">
+    <div id="buttonarray" class="d-flex flex-column justify-content-around">
+        <input type="text" class="form-control "id="locationInput" placeholder="Enter a location">
+        <button class="btn btn-secondary" id="clearMarkers">Clear Markers</button>
+        <button class="btn btn-secondary" id="deleteMarkers">Delete Markers</button>
+    </div>
+    <div id="markerList" class="marker-list">
         
     </div>
 </div>
