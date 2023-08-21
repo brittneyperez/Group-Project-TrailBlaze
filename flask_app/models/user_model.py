@@ -14,7 +14,7 @@ class User:
         self.id = data['id']
         self.username = data['username']
         self.email = data['email']
-        self.about_me = data['about_me']
+        # self.about_me = data['about_me']
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
