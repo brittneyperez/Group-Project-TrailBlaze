@@ -35,7 +35,7 @@ def new_map():
         'lat': geocode_result['location']['lat'],
         'lng': geocode_result['location']['lng']
     }
-    return render_template('maps.html', key=key, data=data)
+    return render_template('newmap.html', key=key, data=data)
 
 @app.route('/maps/create', methods=['POST'])
 def create_map():
