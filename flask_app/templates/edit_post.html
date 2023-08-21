@@ -16,27 +16,27 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="container">
     <div>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                    <p>{{message}}</p>
+                    <p>{{ message }}</p>
                 {% endfor %}
             {% endif %}
         {% endwith %}
     </div>
     <h2>Edit Post</h2>
-    <form action="/user/update_post/{{ post.id }}" method="post">
+    {% for post in posts %}
+    <form action="/post/edit/validation/{{ post.id }}" method="post">
         <!-- Add form fields for post title, content, and image -->
         <div class="mb-3">
             <label for="title" class="form-label">Post Title</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}">
         </div>
         <div class="mb-3">
-            <label for="content" class="form-label">Post Content</label>
-            <textarea class="form-control" id="content" name="content" rows="3">{{ post.content }}</textarea>
+            <label for="text_content" class="form-label">Post Content</label>
+            <textarea class="form-control" id="text_content" name="text_content" rows="3">{{ post.text_content }}</textarea>
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Upload Image (Optional)</label>
@@ -44,5 +44,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Update Post</button>
     </form>
+    {% endfor %}
 </div>
 {% endblock %}

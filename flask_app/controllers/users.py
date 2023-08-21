@@ -1,6 +1,7 @@
 from flask_app import app
 from flask import render_template, redirect, request, session
 from flask_app.models.user_model import User
+from flask_app.models.post_model import Posts
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -53,9 +54,10 @@ def login_user():
 
 @app.route('/user/dashboard')
 def dashboard():
-    # if 'user_id' in session:
+    # if 'user_id' not in session:
     #     return redirect('/login')
-    return render_template('dashboard.html')
+    posts = Posts.all_posts()
+    return render_template('dashboard.html', posts = posts)
 
 # * LOGOUT ------------------
 
