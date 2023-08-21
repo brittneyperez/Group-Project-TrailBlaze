@@ -61,3 +61,11 @@ Bri - 21 Aug, ~5am
     - all routes need to check if `user_id` is in session to access any page (not including registration and login page)
 - Pending:
     - need to do newmaps.html styling
+
+Adrian - 21 Aug, 9:21am
+- Corrected user session for /user/dashboard, stored username and id in session
+- Added user session check for /maps    /newmap
+- Added user_id session for login: fixed incorrect redirect when attempting to login
+- Added check for existing username: registration if username exists
+- Added error flash messages at incorrect input locations for register and login
+- BUG FIX: fixed login loop hole that allowed users to login with the incorrect email
