@@ -53,8 +53,8 @@ def login_user():
 
 @app.route('/user/dashboard')
 def dashboard():
-    # if 'user_id' in session:
-    #     return redirect('/u/dashboard')
+    if 'user_id' in session:
+        return redirect('/login')
     return render_template('dashboard.html')
 
 # * LOGOUT ------------------

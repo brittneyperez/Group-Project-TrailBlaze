@@ -1,46 +1,99 @@
 {% extends "base.html" %}
 
+{% block title %}Maps{% endblock %}
 
+{% block maps_header %}
+  <header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
+    <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
+    <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
+      <a href="/user/dashboard" class="mb-0 text-secondary fw-medium text-decoration-none">Dashboard</a>
+      <a href="/maps" class="mb-0 text-white fw-bold text-decoration-none">Maps</a>
+      <a href="/profile" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
+      <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
+    </div>
+  </header>
+{% endblock %}
 
 
 {% block content %}
-<h1>maps</h1>
-<style>
-    #buttonsarray{
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    transform: translate(25vw,12.5vh);
-    height: 15rem;
-    width: 50vw;
-    background-color: #00000066;
-    /* align-self: center; */
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    }
-</style>
-<div>
-
-    <div id="map" style="height: 500px;"></div>
-    <div id="buttonsarray">
-        <a href="/newmap"><input type="button" class="btn btn-secondary" value="New Map" > </a>
-        <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Existing Maps
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+  <h2 class="text-white text-center fw-bold mb-3">Maps</h2>
+  
+  <style>
+      /* #buttonsarray{
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      transform: translate(25vw,12.5vh);
+      height: 15rem;
+      width: 50vw;
+      background-color: #00000066;
+      
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      } */
+      
+      #position_btn {
+        margin-top: 5rem;
+      }
+  </style>
+  
+  <!-- Tried to  -->
+  <div class="container-fluid flex-grow-1">
+    
+    <div class="position-relative">
+      <div id="Center_Map" class="d-flex justify-content-center">
+        <div id="map" style="height: 500px;" class="col-10"></div>
+      </div>
+      
+      <!-- Changes Needed: Btns are to be centered when screen size < md -->
+      <div id="buttons__array" class="position-absolute top-50 start-50 translate-middle bg-dark bg-opacity-25 col-5">
+        <div class="w-100" style="height: 15rem;">
+          
+          <div id="Add_and_Existing_Btns" class="d-md-flex justify-content-around align-items-center">
+            <a href="/newmap"><input type="button" id="position_btn" class="btn btn-secondary fw-semibold" value="New Map" ></a>
+            
+            <div class="dropdown" id="position_btn">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="fw-semibold">Existing Maps</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
             </div>
           </div>
-</div>
-<script>
-var userlong = {{data.lng}}
-var userlat = {{data.lat}}
-</script>
-<script type="text/javascript" src="{{url_for('static', filename = 'js/maps.js')}}"></script>
+          
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+    
+    
+    <!-- <div id="buttonsarray">
+      <a href="/newmap"><input type="button" class="btn btn-secondary" value="New Map" > </a>
+      <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Existing Maps
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+    </div> -->
+    
+  </div>
+  
+  <script>
+  var userlong = {{data.lng}}
+  var userlat = {{data.lat}}
+  </script>
+  <script type="text/javascript" src="{{url_for('static', filename = 'js/maps.js')}}"></script>
 {% endblock %}
 

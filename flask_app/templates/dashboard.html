@@ -1,6 +1,53 @@
 {% extends "base.html" %}
 
 
+{% block title %}Dashboard{% endblock %}
+
+{% block maps_header %}
+<header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
+    <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
+    <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
+        <a href="/user/dashboard" class="mb-0 text-white fw-bold text-decoration-none">Dashboard</a>
+        <a href="/maps" class="mb-0 text-secondary fw-medium text-decoration-none">Maps</a>
+        <a href="#" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
+        <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
+    </div>
+</header>
+{% endblock %}
+
 {% block content %}
-<h1>Dashboard</h1>
+    <div class="container-fluid flex-grow-1">
+        <div id="FlexDiv__Dashboard">
+            <h2 class="text-white text-center fw-bold mb-3">Dashboard</h2>
+            <div class="col-10 mx-auto bg-white rounded-2 p-5">
+                <div id="Flex_Post_Contents" class="d-flex justify-content-around gap-3">
+                    <!-- Posts go here -->
+                    <div id="Flex_Post_Card" class="col-8 m-3">
+                        <div id="PostCard__Bg" class="bg-white rounded-1 border border-2 p-2">
+                            <h4>Post Title</h4>
+                            <p>Post Content</p>
+                            
+                            <div id="Post__Actions" class="d-flex justify-content-end align-items-center gap-2">
+                                <!-- conditional if -->
+                                <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Edit</a>
+                                <!-- end if -->
+                                <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Like</a>
+                                <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Comment</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- User pfp (to left) -->
+                    <div id="Flex_User_pfp" class="col-3 m-3 d-flex align-items-end">
+                        <div id="UserPfp" class="bg-white rounded-1 border border-2 p-2 text-center">
+                            <p class="fw-semibold">@username</p>
+                            <h3>PFP</h3>
+                            <p class="fw-medium text-secondary mb-0">Aug 21, 2023 HH:mm</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}

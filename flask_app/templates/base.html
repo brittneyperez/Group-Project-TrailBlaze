@@ -9,18 +9,11 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         
-        <header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
-            <a href="#" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
-            {% if request.endpoint == 'login' %}
-                <a href="/register" class="btn btn-light px-3 fw-semibold">Register</a>
-            {% else %}
-                <a href="/login" class="btn btn-light px-3 fw-semibold">Login</a>
-            {% endif %}
-        </header>
         
+        {% block maps_header %}
+        {% endblock %}
         
         {% block content %}
-            {# Template inserted here #}
         {% endblock %}
         
         
