@@ -9,7 +9,7 @@ PASSWORD_REGEX = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&])[A-Za-z\d@$
 USERNAME_REGEX = re.compile(r'^[A-Za-z][A-Za-z0-9_]{4,20}$')
 
 class User:
-    my_db = "trailblazer"
+    my_db = "trailblaze"
     def __init__(self, data):
         self.id = data['id']
         self.username = data['username']
@@ -30,6 +30,7 @@ class User:
         }
         query = "INSERT INTO users (username, email, password) VALUES (%(username)s, %(email)s, %(password)s);"
         result = connectToMySQL(cls.my_db).query_db(query, user_data)
+        print('----RESULT----',result)
         return result
 
     @classmethod
@@ -58,22 +59,21 @@ class User:
     @classmethod
     def find_email(cls, form_data):
         print('LOGIN FORM DATA',form_data)
-        email = {
-            'email' : form_data['email']
-        }
-        print(email)
-        pw_hash = bcrypt.generate_password_hash(form_data['password'])
-        pw_hash_data = {
-            'username' : form_data['username'],
-            'email' : form_data['email'],
-            'password' : pw_hash
-        }
-        query = "SELECT * FROM users WHERE email = %(email)s;"
-        result = connectToMySQL(cls.my_db).query_db(query, email)
-        if not PASSWORD_REGEX.match(form_data['password']):
-            flash('Invalid email/password!')
+        if len(form_data['username']) < 1 or len(form_data['email']) < 1 or len(form_data['password']) < 1:
+            flash('Please fill out email, username, and password', 'category6')
             return False
+        if not PASSWORD_REGEX.match(form_data['password']):
+            flash('The email and password entered does not match our records.', 'category7')
+            return False
+        data = {
+            'email' : form_data['email'],
+            'username' : form_data['username']
+        }
+        print(data)
+        query = "SELECT * FROM users WHERE email = %(email)s AND username = %(username)s;"
+        result = connectToMySQL(cls.my_db).query_db(query, data)
         if len(result) < 1:
+            flash('The email and password entered does not match our records. Please check and try agian.', 'category5')
             return False
         return cls(result[0])
 
@@ -81,19 +81,29 @@ class User:
     def validate_user(form_data):
         is_valid = True
         if form_data['password'] != form_data['confirm']:
-            flash('Invalid email/password!')
+            flash('Please ensure password and confimation match', 'category1')
             print('PASSWORD AND CONFIRMATION DOES NOT MATCH')
             is_valid = False
         if not EMAIL_REGEX.match(form_data['email']):
-            flash('Invalid email/password!')
+            flash('Enter in the format: name@example.com', 'category2')
             print('FAILED EMAIL REGEX')
             is_valid = False
         if not PASSWORD_REGEX.match(form_data['password']):
-            flash('Invalid email/password!')
+            flash(
+                '''Your password needs to include:
+                at least one number,
+                one uppercase and/or lowercase letter,
+                one special character,
+                is at least 6 characters long''', 'category3')
             print('FAILED PASSWORD REGEX')
             is_valid = False
         if not USERNAME_REGEX.match(form_data['username']):
-            flash('Invalid username')
+            flash(
+                '''Your username needs to:
+                start with a letter,
+                contain at least one number,
+                can contain an underscore,
+                is at least 4 characters long''', 'category4')
             print('FAILED USERNAME REGEX')
             is_valid = False
         return is_valid

@@ -8,6 +8,8 @@ key = 'AIzaSyC3wzK_IRzTkYzszfImdCmdYeU02Mbwr4A' # we gotta hide this somehow
 
 @app.route('/maps')
 def initmaps():
+    if not 'user_id' in session:
+        return redirect('/login')
     #get user location through geolocation
     client = googlemaps.Client(key)
     geocode_result = client.geolocate()
@@ -26,6 +28,8 @@ def show_map(map_id):
 
 @app.route('/newmap')
 def new_map():
+    if not 'user_id' in session:
+        return redirect('/login')
     print('new map')
     client = googlemaps.Client(key)
     geocode_result = client.geolocate()
@@ -39,8 +43,6 @@ def new_map():
 
 @app.route('/maps/create', methods=['POST'])
 def create_map():
-    if 'user_id' not in session:
-        return redirect('/')
     data = {
         'name': request.form['name'],
         'user_id': session['user_id']

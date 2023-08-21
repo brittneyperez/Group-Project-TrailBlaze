@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request, session, flash
 from flask_app.models.user_model import User
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -13,8 +13,6 @@ def index():
 
 @app.route('/register')
 def registration_page():
-    # if 'user_id' in session:
-    #     return redirect('/u/dashboard')
     return render_template('index.html')
 
 # POST ROUTE -------------------
@@ -25,15 +23,17 @@ def create_user():
         print('FAILED USER VALIDATION')
         return redirect('/register')
     user_id = User.create_user(request.form)
+    if user_id == False:
+        print('FAILED USERNAME')
+        return redirect('/register')
     session['user_id'] = user_id
+    session['username'] = request.form['username']
     return redirect('/user/dashboard')
 
 # * LOGIN -------------------
 
 @app.route('/login')
 def login_page():
-    # if 'user_id' in session:
-    #     return redirect('/u/dashboard')
     return render_template('login-page.html')
 
 # POST ROUTE ----------------
@@ -47,13 +47,15 @@ def login_user():
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
         print('FAILED HASH PASSWORD')
         return redirect('/login')
+    session['user_id'] = user_in_db.id
+    session['username'] = request.form['username']
     return redirect('/user/dashboard')
 
 # * HOME --------------------
 
 @app.route('/user/dashboard')
 def dashboard():
-    if 'user_id' in session:
+    if not 'user_id' in session:
         return redirect('/login')
     return render_template('dashboard.html')
 
