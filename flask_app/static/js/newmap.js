@@ -19,6 +19,55 @@ async function initMap() {
     map: map,
     title: "Your Location",
   });
+
+
+  map.addListener("click", (event) => {
+    closeInfoWindow(); 
+    openInfoWindow(event.latLng); 
+  });
 }
 
-initMap();
+function openInfoWindow(location) {
+  if (!infoWindow) {
+    infoWindow = new google.maps.InfoWindow({
+      content: getInfoWindowContent(location),
+    });
+
+    infoWindow.addListener("closeclick", () => {
+      infoWindow = null; 
+    });
+
+    infoWindow.setPosition(location); 
+    infoWindow.open(map); 
+  }
+}
+
+function getInfoWindowContent(location) {
+  return `
+    <div>
+      <p>Do you want to add a marker at this location?</p>
+      <button onclick="addMarker(${location.lat()}, ${location.lng()})">Add Marker</button>
+      <button onclick="closeInfoWindow()">Cancel</button>
+    </div>
+  `;
+}
+
+function addMarker(lat, lng) {
+  new google.maps.Marker({
+    position: { lat, lng },
+    map: map,
+    title: "Custom Marker",
+  });
+  closeInfoWindow();
+}
+
+function closeInfoWindow() {
+  if (infoWindow) {
+    infoWindow.close();
+    infoWindow = null;
+  }
+}
+
+google.maps.importLibrary("geometry", "drawing").then(() => {
+  initMap();
+});
