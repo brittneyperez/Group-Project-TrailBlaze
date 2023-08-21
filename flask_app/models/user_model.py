@@ -9,7 +9,7 @@ PASSWORD_REGEX = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&])[A-Za-z\d@$
 USERNAME_REGEX = re.compile(r'^[A-Za-z][A-Za-z0-9_]{4,20}$')
 
 class User:
-    my_db = "trailblazer"
+    my_db = "trailblaze_schema"
     def __init__(self, data):
         self.id = data['id']
         self.username = data['username']

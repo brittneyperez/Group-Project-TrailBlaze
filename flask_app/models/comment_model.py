@@ -5,7 +5,7 @@ from flask_app.models.user_model import User
 from flask_app.models.post_model import Posts
 
 class Comments:
-    my_db = "trailblazer"
+    my_db = "trailblaze_schema"
     def __init__(self, comment_data):
         self.id = comment_data['id']
         self.text_content = comment_data['text_content']

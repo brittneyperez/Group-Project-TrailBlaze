@@ -2,7 +2,7 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.user_model import User
 
 class Map:
-    db = "trailblaze"
+    db = "trailblaze_schema"
     def __init__(self, data):
         self.id = data['id']
         self.is_public = data['is_public']
@@ -32,7 +32,7 @@ class Map:
         return maps
     
 class Marker:
-    db = "trailblaze"
+    db = "trailblaze_schema"
     def __init__(self, data):
         self.id = data['id']
         self.latitude = data['latitude']

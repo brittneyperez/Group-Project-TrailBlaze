@@ -14,7 +14,7 @@ def index():
 @app.route('/register')
 def registration_page():
     # if 'user_id' in session:
-    #     return redirect('/u/dashboard')
+    #     return redirect('/dashboard')
     return render_template('index.html')
 
 # POST ROUTE -------------------
@@ -53,8 +53,8 @@ def login_user():
 
 @app.route('/user/dashboard')
 def dashboard():
-    if 'user_id' in session:
-        return redirect('/login')
+    # if 'user_id' in session:
+    #     return redirect('/login')
     return render_template('dashboard.html')
 
 # * LOGOUT ------------------
