@@ -69,3 +69,8 @@ Adrian - 21 Aug, 9:21am
 - Added check for existing username: registration if username exists
 - Added error flash messages at incorrect input locations for register and login
 - BUG FIX: fixed login loop hole that allowed users to login with the incorrect email
+
+Adrian - 22 Aug, 12:18pm
+- Adjusted login to accept either email or username
+- Adjusted username regex to exclude '@' character
+- Adjusted registraion to flash message for email/username already existing 
