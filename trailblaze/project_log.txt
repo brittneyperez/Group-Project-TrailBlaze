@@ -74,3 +74,14 @@ ibrahim - 21 aug, 9:22pm
 - removed delete markers functionality in js because of redundancy (clear does the same thing)
 - map creation now functional, first map will always be Godspeed, username
 - existing map dropdown works accordingly and redirects to the correct map
+
+
+Bri - 22 Aug, 1:40pm
+- cleaned up maps.html
+- revamped styling in newmap.html to support responsiveness
+    - this meant moving the location search input and btns to the top of the #mapwrapper in its own section above the map and table
+- added styling to "Add Marker" popup window in newmap.js
+Bugs to Fix:
+- adding marker removes <th> in the markers table (of newmap.html)
+Pending:
+- remove unused stylings in maps.html and newmap.html

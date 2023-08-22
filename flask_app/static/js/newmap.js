@@ -76,11 +76,13 @@ function performAutocompleteSearch(query) {
 
 function getInfoWindowContent(location) {
   return `
-    <div>
-      <p>Do you want to add a marker at this location?</p>
+    <div class="p-2">
+      <p class="fw-bold">Do you want to add a marker at this location?</p>
       <p>Address: <span id="address"></span></p>
-      <button id="infoWindowConfirmButton" onclick="confirmAddMarker(${location.lat()}, ${location.lng()},  document.getElementById('address').textContent)">Add Marker</button>
-      <button onclick="closeInfoWindow()">Cancel</button>
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-sm btn-dark" id="infoWindowConfirmButton" onclick="confirmAddMarker(${location.lat()}, ${location.lng()},  document.getElementById('address').textContent)">Add Marker</button>
+        <button class="btn btn-sm btn-secondary" onclick="closeInfoWindow()">Cancel</button>
+      </div>
     </div>
   `;
 }
