@@ -48,23 +48,15 @@ class Comments:
         return comments
 
     @classmethod
-    def posts_comments(cls):
-        query = "SELECT * FROM comments JOIN posts ON comments.post_id = posts.id;"
-        result = connectToMySQL(cls.my_db).query_db(query)
+    def posts_comments(cls, post_id):
+        query = "SELECT * FROM comments WHERE post_id = %(post_id)s"
+        result = connectToMySQL(cls.my_db).query_db(query, {'post_id': post_id})
         if not result:
             return []
         post_comment = []
         for row in result:
             comment_from_post = cls(row)
-            post_data = {
-                "id": row['posts.id'],
-                "title": row['title'],
-                "text_content": row['text_content'],
-                "image": row['image'],
-                "created_at": row['created_at'],
-                "updated_at": row['updated_at']
-            }
-            comment_from_post.creator = Posts(post_data)
+            comment_from_post.creator = User.single_user({'id': row['user_id']})  # Get the user who created the comment
             post_comment.append(comment_from_post)
         return post_comment
 

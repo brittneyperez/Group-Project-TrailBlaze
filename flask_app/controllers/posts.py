@@ -1,7 +1,7 @@
 from flask_app import app
-from flask import render_template, redirect, request, session
-from flask_app.models.user_model import User
+from flask import render_template, redirect, request, session, flash
 from flask_app.models.post_model import Posts
+from flask_app.models.comment_model import Comments
 
 @app.route('/user/create_post')
 def create_post():
@@ -58,3 +58,26 @@ def delete_one_post(id):
     #     return redirect('/')
     Posts.delete_post({'id' : id})
     return redirect('/user/dashboard')
+
+@app.route('/post/<int:post_id>/comments', methods=['GET', 'POST'])
+def post_comments(post_id):
+    if request.method == 'POST':
+        text_content = request.form['text_content']
+        # Add the comment to the database using the Comments model
+        if not text_content or len(text_content.strip()) < 3:
+            flash('Comment must be at least 3 characters long', 'error')
+        else:
+            Comments.create_comment({
+                'user_id': session['user_id'],
+                'post_id': post_id,
+                'text_content': text_content
+            })
+
+    # Get the post and its comments from the database
+    post = Posts.one_post({'id': post_id})
+    print("Post Data:", post)
+    comments = Comments.posts_comments(post_id)
+    print("Comments:", comments)
+    return render_template('post_comments.html', post=post, comments=comments)
+
+

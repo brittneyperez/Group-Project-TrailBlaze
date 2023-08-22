@@ -31,9 +31,11 @@
                                 <h4>{{ post.title }}</h4>
                                 <p>{{ post.text_content }}</p>
                                 <div class="d-flex justify-content-end align-items-center gap-2">
-                                    <a href='/post/edit/{{post.id}}' class="mb-0 btn btn-secondary text-decoration-none">Edit</a>
+                                    {% if session.user_id == post.user_id %}
+                                        <a href='/post/edit/{{post.id}}' class="mb-0 btn btn-secondary text-decoration-none">Edit</a>
+                                    {% endif %}
                                     <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Like</a>
-                                    <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Comment</a>
+                                    <a href='/post/{{ post.id }}/comments' class="mb-0 btn btn-secondary text-decoration-none">View Comments</a>
                                 </div>
                             </div>
                         </div>
