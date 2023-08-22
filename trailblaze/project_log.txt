@@ -159,4 +159,7 @@ Adrian - 21 Aug, 9:21am
 Adrian - 22 Aug, 12:18pm
 - Adjusted login to accept either email or username
 - Adjusted username regex to exclude '@' character
-- Adjusted registraion to flash
+- Adjusted registraion to flash if username/email already exists
+
+Adrian - 22 Aug, 2:38pm
+- Adjusted username regex to exclude all special characters except - and _
