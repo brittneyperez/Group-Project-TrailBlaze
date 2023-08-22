@@ -6,7 +6,7 @@ bcrypt = Bcrypt(app)
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 PASSWORD_REGEX = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$')
-USERNAME_REGEX = re.compile(r'^[A-Za-z][A-Za-z0-9_-][\^@$#&*{}\[\],=().+;:\'"/ `~|<>?]{4,20}$')
+USERNAME_REGEX = re.compile(r'^([A-Za-z])[A-Za-z0-9_-]{4,20}$')
 
 class User:
     my_db = "trailblaze_schema"
