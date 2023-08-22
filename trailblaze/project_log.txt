@@ -75,10 +75,6 @@ ibrahim - 21 aug, 9:22pm
 - map creation now functional, first map will always be Godspeed, username
 - existing map dropdown works accordingly and redirects to the correct map
 
-Adrian - 22 Aug, 12:18pm
-- Adjusted login to accept either email or username
-- Adjusted username regex to exclude '@' character
-- Adjusted registraion to flash message for email/username already existing 
 
 Bri - 22 Aug, 1:40pm
 - cleaned up maps.html
@@ -88,4 +84,79 @@ Bri - 22 Aug, 1:40pm
 Bugs to Fix:
 - adding marker removes <th> in the markers table (of newmap.html)
 Pending:
-- remove unused stylings in maps.html and newmap.html
+- remove unused stylings in mapBri - Sat 19 Aug 2023 (morning)
+- Finished project proposal .txt file as well as general wireframe and schema of TrailBlaze.
+- Uploaded schema and wireframe to main branch.
+
+Tristan - August 19th 3PM
+Created the models for users, posts, comments
+
+Ibrahim - aug 20- 3am
+
+created map controller and model, renamed trailblaze schema to trailblaze
+added map_id to markers in schema (think it will be simpler this way)
+updated requirements.txt
+pushed to main and closed the branch
+
+Ibrahim - aug 20- 2pm
+
+moved flask_app and server.py up in the folder directory because i think theyre supposed to live in the main directory
+put the project log and project proposal into trailblaze folder- let me know if you guys disagree with the decision.
+
+Ibrahim - aug20- 2:13pm
+
+put an 'env-trailblaze' folder into the main directory; this way when we start working on the project we just have to type 'source env-trailblaze/bin/activate' in terminal to start the virtual environment. 
+updated requirements.txt accordingly, you can install all of the dependencies by typing 'pip install -r requirements.txt' in the terminal after getting into the virtual env. 
+changed the default port to 8000 since we have 2 mac users, make sure you go to localhost:8000 after you run the server
+
+
+Bri - 20 Aug, 2:30pm
+- Added initial styling to registration page (index.html) and is ready for implementing validations.
+- Added controller users.py to manage user-specific tasks and routes.
+- Branch: bri-index-styling
+
+Bri - 20 Aug, 3:30pm
+- pushed styles to main branch
+- currently working on Login page
+
+Bri - 20 Aug, 9pm
+- Updated template renderings using Template Inheritance to maintain one component and just conditionally render nav bars and content based on the user's actions and (eventually) session.
+- Renamed user.py and map.py -> users.py and maps.py
+Bugs to Fix:
+- updated .gitignore to ignore pycache (action pending):
+    **/__pycache__/
+    *.py[cod]
+- the conditional jinja if statement does not render "register" button on login page.
+
+
+Adrian - 20 Aug, 11:32pm
+- Added registration and login validations
+- Added form action route in registration and login pages
+- Redirect from registration and login to dashboard
+- Removed 'about_me' for user registration and login since the 'about_me' can be Null. Caused db error preventing registraion/login
+- User table fields updated to NN except for 'about_me'; UQ selected for email
+- Branch: test_branch
+
+
+Bri - 21 Aug, ~5am
+- Started building dashboard.html
+- Modified styles in maps.html with bootstrap
+    - Fixed "Existing Maps" dropdown btn
+- Bugs to fix:
+    - login.html should only be 2 input fields: username/email and password
+    - all routes need to check if `user_id` is in session to access any page (not including registration and login page)
+- Pending:
+    - need to do newmaps.html styling
+
+Adrian - 21 Aug, 9:21am
+- Corrected user session for /user/dashboard, stored username and id in session
+- Added user session check for /maps    /newmap
+- Added user_id session for login: fixed incorrect redirect when attempting to login
+- Added check for existing username: registration if username exists
+- Added error flash messages at incorrect input locations for register and login
+- BUG FIX: fixed login loop hole that allowed users to login with the incorrect email
+
+Adrian - 22 Aug, 12:18pm
+- Adjusted login to accept either email or username
+- Adjusted username regex to exclude '@' character
+- Adjusted registraion to flash
