@@ -53,6 +53,14 @@ class Map:
     def get_map_by_id(cls, data):
         query = "SELECT * FROM maps WHERE maps.id = %(id)s;"
         result = connectToMySQL(cls.db).query_db(query, data)
+        current_map = cls(result[0])
+        map_data = {
+            'map_id': current_map.id,
+            'map_name': current_map.name,
+            'map_author': current_map.author,
+            'map_is_public': current_map.is_public,
+        } 
+        stops 
         return cls(result[0])
     
     @classmethod

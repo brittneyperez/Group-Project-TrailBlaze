@@ -64,6 +64,9 @@ def create_map():
 
 @app.route('/maps/<string:username>/<int:map_id>')
 def show_user_map(username, map_id):
+    if username != session['username']:
+        flash('You do not have permission to view this map' , 'invalidMapAuthor')
+        return redirect('/maps')
     _map = Map.get_map_by_id({'id': map_id})
     client = googlemaps.Client(key)
     if len(_map.stops) <= 0:
