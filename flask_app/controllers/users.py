@@ -21,11 +21,10 @@ def registration_page():
 @app.route('/register/user', methods = ['POST'])
 def create_user():
     if not User.validate_user(request.form):
-        print('FAILED USER VALIDATION')
         return redirect('/register')
     user_id = User.create_user(request.form)
     if user_id == False:
-        print('FAILED USERNAME')
+        flash('Username/Email already exists. Please try again.', 'category7')
         return redirect('/register')
     session['user_id'] = user_id
     session['username'] = request.form['username']
@@ -43,13 +42,15 @@ def login_page():
 def login_user():
     user_in_db = User.find_email(request.form)
     if not user_in_db:
-        print('FAILED LOGIN VALIDATION')
+        flash('The information entered does not match our records. Please check and try again.', 'category5')
         return redirect('/login')
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
-        print('FAILED HASH PASSWORD')
+        flash('The information entered does not match our records. Please check and try again.', 'category5')
         return redirect('/login')
     session['user_id'] = user_in_db.id
-    session['username'] = request.form['username']
+    session['username'] = user_in_db.username
+    print(session['user_id'])
+    print(session['username'])
     return redirect('/user/dashboard')
 
 # * HOME --------------------
