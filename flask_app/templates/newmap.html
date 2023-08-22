@@ -1,47 +1,121 @@
 {% extends "base.html" %}
 
 
+{% block title %}New Map{% endblock %}
 
+{% block maps_header %}
+    <header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
+        <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
+        <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
+            <a href="/user/dashboard" class="mb-0 text-secondary fw-medium text-decoration-none">Dashboard</a>
+            <a href="/maps" class="mb-0 text-secondary fw-medium text-decoration-none">Maps</a>
+            <a href="/profile" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
+            <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
+        </div>
+    </header>
+{% endblock %}
 
 {% block content %}
-<h1>maps</h1>
 <style>
     #map{
         height: 500px;
         width: 500px;
     }
-    #mapwrapper{
+    /* #mapwrapper{
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-    }
-    #buttonarray{
+    } */
+    /* #buttonarray{
         height: 200px;
-    }
+    } */
+    
     .marker-list{
         height: 500px;
         width: 500px;
         overflow-y: scroll;
-        background-color: rgba(240, 248, 255, 0.26);
+        /* background-color: rgba(240, 248, 255, 0.26); */
     }
 </style>
-<div id="mapwrapper">
 
-    <div id="map" style="height: 500px;"></div>
-    <div id="buttonarray" class="d-flex flex-column justify-content-around">
-        <input type="text" class="form-control "id="locationInput" placeholder="Enter a location">
-        <button class="btn btn-secondary" id="clearMarkers">Clear Markers</button>
-        <button class="btn btn-secondary" id="deleteMarkers">Delete Markers</button>
-    </div>
-    <div id="markerList" class="marker-list">
+
+<div class="container-fluid flex-grow-1">
+    <h2 class="text-white text-center fw-bold">Create New Map</h2>
+    
+    <div id="mapwrapper" class="row d-flex justify-content-center gap-2">
+        
+        <div id="buttonarray" class="text-center my-3 p-0">
+            <div class="col-5 mx-auto mb-3">
+                <input type="text" class="form-control" id="locationInput" placeholder="Enter a location">
+            </div>
+            <div class="d-flex justify-content-center gap-4">
+                <button class="btn btn-dark fw-semibold" id="clearMarkers">Clear Markers</button>
+                <button class="btn btn-dark fw-semibold" id="deleteMarkers">Delete Markers</button>
+            </div>
+        </div>
+        
+        <div id="FlxLeft__Map" class="col-10 col-lg-5 mb-3">
+            <div id="Center_Map" class="d-flex justify-content-center">
+                <div id="map"></div>
+            </div>
+        </div>
+        <!--  -->
+        <div id="FlxRight__Map" class="col-10 col-lg-5 mb-3">
+            <table id="markerList" class="marker-list mx-auto table-hover bg-white bg-opacity-25">
+                <thead class="text-center bg-white bg-opacity-50">
+                    <tr>
+                        <th>Order</th>
+                        <th>Location</th>
+                        <th>Lat</th>
+                        <th>Lng</th>
+                    </tr>
+                </thead>
+                <tbody id="markerListBody"></tbody>
+            </table>
+        </div>
+        
         
     </div>
+    
+    
+    
+    <!-- <div id="Center__Div" class="col-10 mx-auto">
+        <div id="mapwrapper" class="flex-row d-xl-flex justify-content-xl-around align-items-center gap-3">
+            
+            <div id="Center_Map" class="d-flex justify-content-center">
+                <div id="map" style="height: 500px;"></div>
+            </div>
+            
+            <div id="buttonarray" class="d-flex flex-column justify-content-around">
+                <input type="text" class="form-control" id="locationInput" placeholder="Enter a location">
+                <button class="btn btn-secondary fw-semibold" id="clearMarkers">Clear Markers</button>
+                <button class="btn btn-secondary fw-semibold" id="deleteMarkers">Delete Markers</button>
+            </div>
+            
+            <div id="Center_Markers_Table" class="d-flex justify-content-center">
+                <table id="markerList" class="marker-list table-hover bg-white bg-opacity-25">
+                    <thead class="text-center px-3 bg-white bg-opacity-50">
+                        <tr>
+                            <th>Order</th>
+                            <th>Location</th>
+                            <th>Lat</th>
+                            <th>Lng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="markerListBody">
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+        
+    </div> -->
 </div>
+
 <script>
-var userlong = {{data.lng}}
-var userlat = {{data.lat}}
+    var userlong = {{data.lng}}
+    var userlat = {{data.lat}}
 </script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/newmap.js')}}"></script>
 {% endblock %}
-

@@ -13,7 +13,7 @@ class Map:
     
     @classmethod
     def create_map(cls, data):
-        query = "INSERT INTO maps (is_public, name, user_id) VALUES (%(name)s, %(user_id)s);"
+        query = "INSERT INTO maps (name, user_id) VALUES (%(name)s, %(user_id)s);"
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
@@ -26,10 +26,34 @@ class Map:
     def get_all_maps_by_user(cls, data):
         query = "SELECT * FROM maps WHERE maps.user_id = %(user_id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
-        maps = []
-        for map in results:
-            maps.append(cls(map))
-        return maps
+        all_user_maps = []
+
+        for user_map in results:
+            all_user_maps.append(cls(user_map))
+        return all_user_maps
+    
+    @classmethod
+    def get_all_maps_by_user_dict(cls, data): #not using this one, but its nice
+        query = "SELECT * FROM maps WHERE maps.user_id = %(user_id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        all_user_maps = []
+
+        for user_map in results:
+            data = {
+                'map_id': user_map['id'],
+                'map_name': user_map['name'],
+                'map_author': user_map['user_id'],
+                'map_is_public': user_map['is_public'],
+                
+            }
+            all_user_maps.append(data)
+        return all_user_maps
+    
+    @classmethod
+    def get_map_by_id(cls, data):
+        query = "SELECT * FROM maps WHERE maps.id = %(id)s;"
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return cls(result[0])
     
 class Marker:
     db = "trailblaze_schema"

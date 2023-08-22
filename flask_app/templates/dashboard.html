@@ -23,21 +23,21 @@
                 <div class="text-center mb-1">
                     <a href="/user/create_post" class="mb-0 fw-medium btn btn-success">Create Post</a>
                 </div>
-                <div id="Flex_Post_Contents" class="d-flex justify-content-around gap-3">
-                    <!-- Posts go here -->
-                    <div id="Flex_Post_Card" class="col-8 m-3">
-                        <div id="PostCard__Bg" class="bg-white rounded-1 border border-2 p-2">
-                            <h4>Post Title</h4>
-                            <p>Post Content</p>
-                            
-                            <div id="Post__Actions" class="d-flex justify-content-end align-items-center gap-2">
-                                <!-- conditional if -->
-                                <a href='#' class="mb-0 btn btn-secondary text-decoration-none">Edit</a>
-                                <!-- end if -->
-                                <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Like</a>
-                                <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Comment</a>
+                    <div id="Flex_Post_Contents" class="d-flex flex-wrap gap-3">
+                        <!-- Loop through the posts -->
+                        {% for post in posts %}
+                        <div class="col-8 m-3">
+                            <div class="bg-white rounded-1 border border-2 p-2">
+                                <h4>{{ post.title }}</h4>
+                                <p>{{ post.text_content }}</p>
+                                <div class="d-flex justify-content-end align-items-center gap-2">
+                                    <a href='/post/edit/{{post.id}}' class="mb-0 btn btn-secondary text-decoration-none">Edit</a>
+                                    <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Like</a>
+                                    <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Comment</a>
+                                </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                     <!-- User pfp (to left) -->
                     <div id="Flex_User_pfp" class="col-3 m-3 d-flex align-items-end">

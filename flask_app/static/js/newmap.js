@@ -74,17 +74,15 @@ function performAutocompleteSearch(query) {
   }
 }
 
-
-
-
-
 function getInfoWindowContent(location) {
   return `
-    <div>
-      <p>Do you want to add a marker at this location?</p>
+    <div class="p-2">
+      <p class="fw-bold">Do you want to add a marker at this location?</p>
       <p>Address: <span id="address"></span></p>
-      <button id="infoWindowConfirmButton" onclick="confirmAddMarker(${location.lat()}, ${location.lng()},  document.getElementById('address').textContent)">Add Marker</button>
-      <button onclick="closeInfoWindow()">Cancel</button>
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-sm btn-dark" id="infoWindowConfirmButton" onclick="confirmAddMarker(${location.lat()}, ${location.lng()},  document.getElementById('address').textContent)">Add Marker</button>
+        <button class="btn btn-sm btn-secondary" onclick="closeInfoWindow()">Cancel</button>
+      </div>
     </div>
   `;
 }
@@ -132,12 +130,14 @@ async function openInfoWindow(location) {
 function confirmAddMarker(lat,lng, address) {
   addMarker(lat,lng, address);
   closeInfoWindow();
-  updateMarkerList();
+  updateMarkerList(lat, lng, address);
 }
 
 function addMarker(lat, lng, title) {
   const marker = new google.maps.Marker({
     position: { lat, lng },
+    lat: lat,
+    lng: lng,
     map: map,
     title: title,
   });
@@ -147,9 +147,10 @@ function addMarker(lat, lng, title) {
 function updateMarkerList() {
   if (markerListElement) {
     markerListElement.innerHTML = markers
-    .map((marker, index) => `<p>Marker ${index + 1}: ${marker.getTitle()}</p>`)
+    .map((marker, index) => `<p>Marker ${index + 1}: ${marker.title}: ${marker.lat.toFixed(2)},  ${marker.lng.toFixed(2)}</p>`)
     .join("");
     console.log(markerListElement.innerHTML);
+    console.log(markers);
 }
 }
 function closeInfoWindow() {
@@ -165,14 +166,9 @@ function clearMarkers() {
   updateMarkerList();
 }
 
-function deleteMarkers() {
-  clearMarkers();
-  markerListElement.innerHTML = "";
-}
 
 // bind the clearMarkers and deleteMarkers functions to the buttons
 document.getElementById("clearMarkers").addEventListener("click", clearMarkers);
-document.getElementById("deleteMarkers").addEventListener("click", deleteMarkers);
 
 google.maps.importLibrary("geometry", "drawing").then(() => {
   initMap();

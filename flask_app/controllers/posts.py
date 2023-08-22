@@ -5,21 +5,27 @@ from flask_app.models.post_model import Posts
 
 @app.route('/user/create_post')
 def create_post():
-    # if "user_id" not in session:
-    #     return redirect('/')
+    if "user_id" not in session:
+        return redirect('/')
     return render_template('new-post.html')
 
-@app.route('/user/submit_post', methods = ['POST'])
+@app.route('/user/submit_post', methods=['POST'])
 def validate_user_post():
-    # if "user_id" not in session:
-    #     return redirect('/')
+    if "user_id" not in session:
+        return redirect('/')
+    
+    title = request.form['title']
+    text_content = request.form['text_content']  # Make sure this matches the name attribute of the textarea field
+    image = request.form['image'] if 'image' in request.form else None
+
     if not Posts.validate_post(request.form):
         return redirect('/user/create_post')
+    form_data = request.form
     data = {
         "user_id" : session['user_id'],
-        "title" : session['title'],
-        "text_content" : session['text_content'],
-        "image" : session['image'],
+        "title" : form_data['title'],
+        "text_content" : form_data['text_content'],
+        "image" : form_data['image'],
     }
     Posts.create_post(data)
     return redirect('/user/dashboard')
@@ -28,8 +34,8 @@ def validate_user_post():
 def edit_post(id):
     # if "user_id" not in session:
     #     return redirect('/')
-    posts = Posts.one_post({'id' : id})
-    return render_template('edit_post.html', posts = posts)
+    post = Posts.one_post({'id' : id})
+    return render_template('edit_post.html', posts=[post])
 
 @app.route('/post/edit/validation/<int:id>', methods=['POST'])
 def validate_edit(id):
@@ -46,7 +52,7 @@ def validate_edit(id):
     Posts.update_post(data)
     return redirect('/user/dashboard')
 
-@app.route('/post/delete/<int:id>')
+@app.route('/post/delete/<int:id>', methods=['DELETE'])
 def delete_one_post(id):
     # if 'user_id' not in session:
     #     return redirect('/')
