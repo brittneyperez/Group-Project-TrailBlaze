@@ -55,6 +55,31 @@ class Map:
         result = connectToMySQL(cls.db).query_db(query, data)
         return cls(result[0])
     
+    @classmethod
+    def stops_by_map(cls, data):
+        query = """
+        SELECT m.id AS marker_id, m.latitude, m.longitude, m.address, mp.id AS map_id
+        FROM markers m
+        JOIN maps mp ON m.maps_id = mp.id
+        WHERE mp.id = %(map_id)s;
+        """
+        all_stops = connectToMySQL(cls.db).query_db(query, data)
+        stops = []
+        for stop in all_stops:
+            data = {
+                'marker_id': stop['marker_id'],
+                'address': stop['address'],
+                'latitude': stop['latitude'],
+                'longitude': stop['longitude'],
+                'map_id': stop['map_id'],
+            }
+            stops.append(data)
+        return stops
+
+
+
+
+    
 class Marker:
     db = "trailblaze_schema"
     def __init__(self, data):
@@ -62,13 +87,18 @@ class Marker:
         self.latitude = data['latitude']
         self.longitude = data['longitude']
         self.address = data['address']
-        self.map_id = data['map_id']
+        self.maps_id = data['map_id']
+        self.user_id = data['user_id']
 
     @classmethod
     def create_marker(cls, data):
-        query = "INSERT INTO markers (latitude, longitude, address, map_id) VALUES (%(latitude)s, %(longitude)s, %(address)s, %(map_id)s);"
+        query = """
+        INSERT INTO markers 
+        (latitude, longitude, address, maps_id, user_id) VALUES 
+        (%(latitude)s, %(longitude)s, %(address)s, %(maps_id)s, %(user_id)s);
+        """
         return connectToMySQL(cls.db).query_db(query, data)
-    
+
     
     @classmethod
     def get_markers_by_map(cls, data):

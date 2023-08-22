@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template, redirect, request, session, flash
+from flask import render_template, redirect, request, session, flash, jsonify
 from flask_app.models.map_model import Map, Marker
 from flask_app.models.user_model import User
 import googlemaps
@@ -77,3 +77,24 @@ def show_user_map(username, map_id):
         return render_template('newmap.html', key=key, data=data)
     else:
         return render_template('map.html', key=key, map=_map)
+    
+@app.route('/add_marker', methods=['POST'])
+def add_marker():
+    user_id = session['user_id']
+    marker_submission = request.form
+    print(marker_submission)
+    data = {
+        'latitude': marker_submission['lat'],
+        'longitude': marker_submission['lng'],
+        'address': marker_submission['address'],
+        'maps_id': marker_submission['map_id'],
+        'user_id': user_id,
+    }
+    print('DATA IS ', data)
+    Marker.create_marker(data)
+    map_stops_data = {
+        'map_id': marker_submission['map_id'],
+    }
+    map_stops = Map.stops_by_map(map_stops_data)
+    print('MAP STOPS ARE ', map_stops)
+    return jsonify({'success': True})
