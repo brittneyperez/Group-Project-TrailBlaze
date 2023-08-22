@@ -27,9 +27,18 @@ class Map:
         query = "SELECT * FROM maps WHERE maps.user_id = %(user_id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         maps = []
-        for map in results:
-            maps.append(cls(map))
-        return maps
+        if results:
+            for map in results:
+                maps.append(cls(map))
+                return maps
+        else:
+            return False
+    
+    @classmethod
+    def get_map_by_id(cls, data):
+        query = "SELECT * FROM maps WHERE maps.id = %(id)s;"
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return cls(result[0])
     
 class Marker:
     db = "trailblaze_schema"

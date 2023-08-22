@@ -34,7 +34,17 @@
         <button class="btn btn-secondary" id="clearMarkers">Clear Markers</button>
         <button class="btn btn-secondary" id="deleteMarkers">Delete Markers</button>
     </div>
-    <div id="markerList" class="marker-list">
+    <div id="markerList" class="marker-list table-hover">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Location</th>
+                <th>Lat</th>
+                <th>Lng</th>
+            </tr>
+        </thead>
+        <tbody id="markerListBody">
+        </tbody>
         
     </div>
 </div>
@@ -44,4 +54,3 @@ var userlat = {{data.lat}}
 </script>
 <script type="text/javascript" src="{{url_for('static', filename = 'js/newmap.js')}}"></script>
 {% endblock %}
-

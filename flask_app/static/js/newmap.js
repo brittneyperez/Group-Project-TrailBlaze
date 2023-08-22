@@ -74,10 +74,6 @@ function performAutocompleteSearch(query) {
   }
 }
 
-
-
-
-
 function getInfoWindowContent(location) {
   return `
     <div>
@@ -132,12 +128,14 @@ async function openInfoWindow(location) {
 function confirmAddMarker(lat,lng, address) {
   addMarker(lat,lng, address);
   closeInfoWindow();
-  updateMarkerList();
+  updateMarkerList(lat, lng, address);
 }
 
 function addMarker(lat, lng, title) {
   const marker = new google.maps.Marker({
     position: { lat, lng },
+    lat: lat,
+    lng: lng,
     map: map,
     title: title,
   });
@@ -147,9 +145,10 @@ function addMarker(lat, lng, title) {
 function updateMarkerList() {
   if (markerListElement) {
     markerListElement.innerHTML = markers
-    .map((marker, index) => `<p>Marker ${index + 1}: ${marker.getTitle()}</p>`)
+    .map((marker, index) => `<p>Marker ${index + 1}: ${marker.title}: ${marker.lat.toFixed(2)},  ${marker.lng.toFixed(2)}</p>`)
     .join("");
     console.log(markerListElement.innerHTML);
+    console.log(markers);
 }
 }
 function closeInfoWindow() {
@@ -165,14 +164,9 @@ function clearMarkers() {
   updateMarkerList();
 }
 
-function deleteMarkers() {
-  clearMarkers();
-  markerListElement.innerHTML = "";
-}
 
 // bind the clearMarkers and deleteMarkers functions to the buttons
 document.getElementById("clearMarkers").addEventListener("click", clearMarkers);
-document.getElementById("deleteMarkers").addEventListener("click", deleteMarkers);
 
 google.maps.importLibrary("geometry", "drawing").then(() => {
   initMap();
