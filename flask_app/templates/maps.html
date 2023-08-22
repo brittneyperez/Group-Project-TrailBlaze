@@ -59,10 +59,16 @@
                 <span class="fw-semibold">Existing Maps</span>
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                {% if existing_maps == [] %}
+                  <li><a class="dropdown-item" href="#">No Existing Maps</a></li>
+                {% endif %}
+                {% for map in existing_maps %}
+                
+                  <li><a class="dropdown-item" href="/maps/{{session.username}}/{{map.id}}">{{map.name}}</a></li>
+                {% endfor %}
               </ul>
+              
+             
             </div>
           </div>
           
@@ -72,6 +78,12 @@
     </div>
     
   </div>
+  <p>{{session.username}}</p>
+  <!-- <p>{{existing_maps}}</p>
+  {% for map in existing_maps %}
+    <p>{{map.map_name}}</p>
+  {% endfor %} -->
+
     
     
     <!-- <div id="buttonsarray">

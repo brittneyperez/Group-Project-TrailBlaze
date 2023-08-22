@@ -20,21 +20,12 @@ def validate_user_post():
 
     if not Posts.validate_post(request.form):
         return redirect('/user/create_post')
-<<<<<<< Updated upstream
-    
-    data = {
-        "user_id": session['user_id'],
-        "title": title,
-        "text_content": text_content,
-        "image": image,
-=======
     form_data = request.form
     data = {
         "user_id" : session['user_id'],
         "title" : form_data['title'],
         "text_content" : form_data['text_content'],
         "image" : form_data['image'],
->>>>>>> Stashed changes
     }
     Posts.create_post(data)
     return redirect('/user/dashboard')

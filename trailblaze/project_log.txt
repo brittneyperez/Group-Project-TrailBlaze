@@ -69,3 +69,8 @@ Adrian - 21 Aug, 9:21am
 - Added check for existing username: registration if username exists
 - Added error flash messages at incorrect input locations for register and login
 - BUG FIX: fixed login loop hole that allowed users to login with the incorrect email
+
+ibrahim - 21 aug, 9:22pm 
+- removed delete markers functionality in js because of redundancy (clear does the same thing)
+- map creation now functional, first map will always be Godspeed, username
+- existing map dropdown works accordingly and redirects to the correct map
