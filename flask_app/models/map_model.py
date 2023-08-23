@@ -60,7 +60,6 @@ class Map:
             'map_author': current_map.author,
             'map_is_public': current_map.is_public,
         } 
-        stops 
         return cls(result[0])
     
     @classmethod
