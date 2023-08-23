@@ -186,7 +186,8 @@ function addMarkerToDatabase(lat, lng, address) {
 function getMapIdFromURL() {
   const url = window.location.href;
   urlParsed = url.split('/');
-  return urlParsed[urlParsed.length - 1];
+  idFromUrl = parseInt(urlParsed[urlParsed.length - 1]);
+  return idFromUrl;
 }
 
 
