@@ -15,6 +15,16 @@ class Map:
     def create_map(cls, data):
         query = "INSERT INTO maps (name, user_id) VALUES (%(name)s, %(user_id)s);"
         return connectToMySQL(cls.db).query_db(query, data)
+    
+    @classmethod
+    def delete_map(cls, data):
+        query = "DELETE FROM maps WHERE maps.id = %(id)s;"
+        return connectToMySQL(cls.db).query_db(query, data)
+    
+    @classmethod
+    def rename_map(cls, data):
+        query = "UPDATE maps SET name = %(name)s WHERE maps.id = %(id)s;"
+        return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
     def get_map(cls, data):

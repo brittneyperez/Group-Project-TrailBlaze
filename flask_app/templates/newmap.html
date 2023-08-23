@@ -17,6 +17,34 @@
 
 {% block content %}
 <style>
+    @keyframes fade-in {
+     from { opacity: 0; }
+   }
+
+   @keyframes fade-out {
+     to { opacity: 0; }
+   }
+
+   @keyframes slide-from-right {
+     from { transform: translateX(90px); }
+   }
+
+   @keyframes slide-to-left {
+     to { transform: translateX(-90px); }
+   }
+
+   .slide-it {
+     view-transition-name: slide-it;
+   }
+
+   ::view-transition-old(slide-it) {
+     animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+     600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+   }
+   ::view-transition-new(slide-it) {
+     animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+     600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+   }
     #map{
         height: 500px;
         width: 500px;
@@ -44,21 +72,42 @@
     #markerListBody tr:hover{
         background-color: rgba(240, 248, 255, 0.26);
     }
+    /* #titlespot{
+        opacity:1;
+    }
+    #titlespot.htmx-added{
+        opacity:0;
+        transition: opacity 1s ease-out;
+    }    */
 </style>
 
 
 <div class="container-fluid flex-grow-1">
-    <h2 class="text-white text-center fw-bold">Create New Map</h2>
+    <div class="text-white text-center fw-bold slide-it" id="titlespot">
+        <h1>{{map.name}}
+        <button id="editbutton" type="button" class="btn btn-secondary" hx-get="/maps/{{session['username']}}/{{map.id}}/rename" hx-target="#titlespot" hx-swap="outerHTML transition:true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi-pencil-square" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
+          </svg>
+        </button>
+        </h1>
+    
+      </div>
     
     <div id="mapwrapper" class="row d-flex justify-content-center gap-2">
         
         <div id="buttonarray" class="text-center my-3 p-0">
-            <div class="col-5 mx-auto mb-3">
+            <div class="col-5 mx-auto mb-3" style="width: 60%"">
                 <input type="text" class="form-control" id="locationInput" placeholder="Enter a location">
             </div>
-            <div class="d-flex justify-content-center gap-4">
-                <button class="btn btn-dark fw-semibold" id="clearMarkers">Clear Markers</button>
-                <button class="btn btn-dark fw-semibold" id="deleteMarkers">Delete Markers</button>
+            <div class="d-flex justify-content-around w-75 m-auto gap-5">
+                <button class="btn btn-light fw-semibold" id="clearMarkers">Clear Markers</button>
+                <button class="btn btn-primary fw-semibold" id="routeMap">Begin Journey!</button>
+            </div>
+            <div class="d-flex justify-content-around m-auto w-50 gap-5 mt-3">
+                <a href="/delete_map/"><button class="btn btn-danger fw-semibold">Delete Map</button></a>
+                <button class="btn btn-success fw-semibold" id="deleteMarkers">Share Map!</button>
             </div>
         </div>
         
@@ -88,8 +137,10 @@
                         </tr>
                     {% endfor %}
                 </tbody>
+                
             </table>
         </div>
+    </div>
         
         <h4>{{stops}}</h4>
     </div>
