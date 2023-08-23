@@ -34,12 +34,24 @@
                                     {% if session.user_id == post.user_id %}
                                         <a href='/post/edit/{{post.id}}' class="mb-0 btn btn-secondary text-decoration-none">Edit</a>
                                     {% endif %}
-                                    <a href="#" class="mb-0 btn btn-secondary text-decoration-none">Like</a>
+                                    
+                                    <span>{{ post.like_count }} Likes</span>
+                                    {% if post.liked_by_user %}
+                                        <form action="/unlike/{{ post.id }}" method="post" class="like-form">
+                                            <button type="submit" class="mb-0 btn btn-secondary text-decoration-none">Unlike</button>
+                                        </form>
+                                    {% else %}
+                                        <form action="/like/{{ post.id }}" method="post" class="like-form">
+                                            <button type="submit" class="mb-0 btn btn-secondary text-decoration-none">Like</button>
+                                        </form>
+                                    {% endif %}
+                                    
                                     <a href='/post/{{ post.id }}/comments' class="mb-0 btn btn-secondary text-decoration-none">View Comments</a>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
+                        
                     </div>
                     <!-- User pfp (to left) -->
                     <div id="Flex_User_pfp" class="col-3 m-3 d-flex align-items-end">
