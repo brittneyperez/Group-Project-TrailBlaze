@@ -174,3 +174,7 @@ Pending Functionality:
 - Styled "new-post.html".
 - Added imgs folder to store icons used throughout webapp.
 - Started "landing-page.html", but nothing solid as this page is still pending.
+- Adjusted registraion to flash if username/email already exists
+
+Adrian - 22 Aug, 2:38pm
+- Adjusted username regex to exclude all special characters except - and _
