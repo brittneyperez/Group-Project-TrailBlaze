@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}New Post{% endblock %}
 
 {% block maps_header %}
 <header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
     <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
     <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
-        <a href="/user/dashboard" class="mb-0 text-white fw-bold text-decoration-none">Dashboard</a>
+        <a href="/user/dashboard" class="mb-0 text-secondary fw-medium text-decoration-none">Dashboard</a>
         <a href="/maps" class="mb-0 text-secondary fw-medium text-decoration-none">Maps</a>
         <a href="#" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
         <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
@@ -16,32 +16,47 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <p>{{message}}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+<div class="container-fluid flex-grow-1">
+    <div id="Create_Post__Page" class="row d-flex justify-content-center">
+        <h2 class="text-white text-center fw-bold mb-3">Create a New Post</h2>
+        <div id="Form_Page" class="col-11 col-sm-8 col-lg-6 p-3 mb-3 bg-white rounded-2 text-center">
+            <div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="text-danger">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            
+            <form action="/user/submit_post" method="post">
+                <!-- Post Title Input -->
+                <div id="PostTitle__Flex_Div" class="form-group row px-3 mb-3">
+                    <label for="title" class="form-label fw-semibold">Post Title:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                </div>
+                <!-- Post Content Input -->
+                <div id="PostContent_Input__Flex_Div" class="form-group row px-3 mb-3">
+                    <label for="content" class="form-label fw-semibold">Post Content:</label>
+                    <div class="col">
+                        <textarea class="form-control" id="content" name="text_content" rows=""></textarea>
+                    </div>
+                </div>
+                <!-- File Upload Input -->
+                <div id="FileUpload_Input__Flex_Div" class="form-group row px-3 mb-3">
+                    <label for="content" class="form-label fw-semibold">Upload Image <span class="fw-normal">(Optional)</span>:</label>
+                    <div class="col">
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="submit" value="Post" class="mt-4 btn btn-dark px-3 fw-bold">
+                </div>
+            </form>
+        </div>
     </div>
-    <h2>Create a New Post</h2>
-    <form action="/user/submit_post" method="post">
-        <!-- Add form fields for post title and content -->
-        <div class="mb-3">
-            <label for="title" class="form-label">Post Title</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
-        <div class="mb-3">
-            <label for="content" class="form-label">Post Content</label>
-            <textarea class="form-control" id="content" name="text_content" rows=""></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="image" class="form-label">Upload Image (Optional)</label>
-            <input type="file" class="form-control" id="image" name="image">
-        </div>
-        <button type="submit" class="btn btn-primary">Create Post</button>
-    </form>
 </div>
 {% endblock %}

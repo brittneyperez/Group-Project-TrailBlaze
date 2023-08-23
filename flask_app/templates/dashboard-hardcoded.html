@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+
+{% block title %}Dashboard Test{% endblock %}
+
+{% block maps_header %}
+<header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
+    <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
+    <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
+        <a href="/user/dashboard" class="mb-0 text-white fw-bold text-decoration-none">Dashboard</a>
+        <a href="/maps" class="mb-0 text-secondary fw-medium text-decoration-none">Maps</a>
+        <a href="#" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
+        <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid flex-grow-1">
+        <div id="FlexDiv__Dashboard">
+            <h2 class="text-white text-center fw-bold mb-3">Dashboard</h2>
+            <div class="col-11 col-md-10 mx-auto bg-white rounded-2 p-5">
+                <div class="text-center mb-1">
+                    <a href="/user/create_post" class="mb-4 fw-medium btn btn-success">Create Post</a>
+                </div>
+                
+                <!-- !!! THIS ENTIRE POST BLOCK THAT MUST BE LOOPED -->
+                <div id="PostContent_TableFmt" class="border border-2 mb-2">
+                    <table class="table table-hover table-borderless mb-0">
+                        <tr class="d-flex row px-3">
+                            <div class="col">
+                                <!-- ? PFP - USERNAME - TIMESTAMP -->
+                                <td id="Flex__UserPFP_Username" class="d-flex justify-content-between align-items-center gap-3">
+                                    <div class="d-flex justify-content-start align-items-center gap-3">
+                                        <img src="../static/imgs/abstract-user-flat.png" alt="user-pfp" style="height: 50px;">
+                                        <p class="mb-0">
+                                            <span class="fw-semibold">@username123</span>
+                                            <span class="text-secondary fst-italic">• 23 Aug 2023</span>
+                                        </p>
+                                    </div>
+                                    <a href="#">
+                                        <img src="../static/imgs/map-marker.png" alt="marker" style="height: 50px;">
+                                    </a>
+                                </td>
+                                <!-- ? Post Content - Like Reddit when Desktop, Like Insta when mobile -->
+                                <td class="col">
+                                    <h5>Post Title</h5>
+                                    <div class="col d-lg-flex justify-content-lg-between gap-lg-3">
+                                        <img src="../static/imgs/abstract-user-flat.png" alt="img-placeholder" class="img-fluid mx-auto d-flex align-self-center col-12 col-lg-4 order-1 order-lg-2" style="max-width: 150px; max-height: 150px;">
+                                        <p class="col-12 col-lg-8 order-2 order-lg-1 text-start mb-lg-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est odit, quas perferendis expedita fugiat, nostrum itaque tempora dolore maiores sequi quaerat!</p>
+                                    </div>
+                                </td>
+                                <!-- ? Linked Actions - Only Edit and Delete are user-specific -->
+                                <td class="d-flex justify-content-sm-end justify-content-center gap-2 pb-3">
+                                    <a href="#" class="text-decoration-none fw-bold text-dark d-flex align-items-center gap-1">
+                                        <img src="../static/imgs/post-icon.png" alt="post-icon" style="height: 25px;">
+                                        <span>EDIT</span>
+                                    </a>
+                                    <a href="#" class="text-decoration-none fw-bold text-dark d-flex align-items-center gap-1">
+                                        <img src="../static/imgs/closed-heart-icon.png" alt="liked-heart" style="height: 15px;">
+                                        <!-- <span>LIKE</span> -->
+                                        <span>23</span>
+                                    </a>
+                                    <a href="#" class="text-decoration-none fw-bold text-dark">
+                                        <img src="../static/imgs/speech-bubble.png" alt="comment-bubble" style="height: 25px;">
+                                        <span>COMMENT</span>
+                                    </a>
+                                    <a href="#" class="text-decoration-none fw-bold text-danger">× DELETE</a>
+                                </td>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+                <!-- !!! -->
+                <!-- ! This is a post block if user posted no image -->
+                <div id="PostContent_TableFmt" class="border border-2 mb-2">
+                    <table class="table table-hover table-borderless mb-0">
+                        <tr class="d-flex row px-3">
+                            <div class="col">
+                                <!-- ? PFP - USERNAME - TIMESTAMP -->
+                                <td id="Flex__UserPFP_Username" class="d-flex justify-content-between align-items-center gap-3">
+                                    <div class="d-flex justify-content-start align-items-center gap-3">
+                                        <img src="../static/imgs/abstract-user-flat.png" alt="user-pfp" style="height: 50px;">
+                                        <p class="mb-0">
+                                            <span class="fw-semibold">@username123</span>
+                                            <span class="text-secondary fst-italic">• 23 Aug 2023</span>
+                                        </p>
+                                    </div>
+                                    <a href="#">
+                                        <img src="../static/imgs/map-marker.png" alt="marker" style="height: 50px;">
+                                    </a>
+                                </td>
+                                <!-- ? Post Content - Like Reddit when Desktop, Like Insta when mobile -->
+                                <td class="col">
+                                    <h5>Post Title</h5>
+                                    <div class="col d-md-flex justify-content-md-between gap-md-3">
+                                        {% if image_exists %}
+                                        <!-- <img src="../static/imgs/abstract-user-flat.png" alt="img-placeholder" class="col-11 col-md-4 order-1 order-md-2" style="height: 100px;"> -->
+                                        {% endif %}
+                                        <p class="col-12 {% if not image_exists %}col-md-12{% endif %} order-2 order-md-1 text-start mb-md-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est odit, quas perferendis expedita fugiat, nostrum itaque tempora dolore maiores sequi quaerat!</p>
+                                    </div>
+                                </td>
+                                <!-- ? Linked Actions - Only Edit and Delete are user-specific -->
+                                <td class="d-flex justify-content-sm-end justify-content-end gap-3 pb-3">
+                                    <a href="#" class="text-decoration-none fw-bold text-dark d-flex align-items-center gap-1">
+                                        <img src="../static/imgs/open-heart-icon.png" alt="unliked-heart" style="height: 15px;">
+                                        <span>LIKE</span>
+                                    </a>
+                                    <a href="#" class="text-decoration-none fw-bold text-dark">
+                                        <img src="../static/imgs/speech-bubble.png" alt="comment-bubble" style="height: 15px;">
+                                        <span>COMMENT</span>
+                                    </a>
+                                </td>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+                <!-- !!! -->
+                
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
