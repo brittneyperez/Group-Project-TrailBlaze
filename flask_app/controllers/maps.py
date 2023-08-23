@@ -68,18 +68,19 @@ def show_user_map(username, map_id):
         flash('You do not have permission to view this map' , 'invalidMapAuthor')
         return redirect('/maps')
     _map = Map.get_map_by_id({'id': map_id})
+    stops = Map.stops_by_map({'map_id': map_id})
     client = googlemaps.Client(key)
-    if len(_map.stops) <= 0:
-        geocode_result = client.geolocate()
-        print(geocode_result)
-        print(geocode_result['location'])
-        data = {
-            'lat': geocode_result['location']['lat'],
-            'lng': geocode_result['location']['lng'],
-        }
+    geocode_result = client.geolocate()
+    print(geocode_result)
+    print(geocode_result['location'])
+    data = {
+        'lat': geocode_result['location']['lat'],
+        'lng': geocode_result['location']['lng'],
+    }
+    if len(stops) <= 0:
         return render_template('newmap.html', key=key, data=data)
     else:
-        return render_template('map.html', key=key, map=_map)
+        return render_template('newmap.html', key=key, data=data, map=_map)
     
 @app.route('/add_marker', methods=['POST'])
 def add_marker():
