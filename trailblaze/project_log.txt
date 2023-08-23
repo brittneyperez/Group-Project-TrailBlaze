@@ -160,3 +160,17 @@ Adrian - 22 Aug, 12:18pm
 - Adjusted login to accept either email or username
 - Adjusted username regex to exclude '@' character
 - Adjusted registraion to flash
+
+
+Bri - 23 Aug, ~3am
+- Finished prototype of "dashboard.html"
+    - Added marker with link on upper-right corner of post block as per request.
+Pending Functionality:
+    If new styling is approved...
+    - Making like count increment and turn into a closed heart upon logged-in user liking a posts
+    - Create jinja that will filter the post block's layout based on if the user provided a file upload or not
+    - Create jinja condition where the "Edit" and "Delete" button is ONLY visible to current user
+    - Comment functionality... feature still pending
+- Styled "new-post.html".
+- Added imgs folder to store icons used throughout webapp.
+- Started "landing-page.html", but nothing solid as this page is still pending.

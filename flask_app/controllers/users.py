@@ -6,9 +6,17 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
 
+# ? Landing Page (Pending...)
 @app.route('/')
 def index():
-    return redirect('/register')
+    return render_template('landing.html')
+
+# ! FOR TESTING PURPOSES -- 
+@app.route('/dashboard/sample')
+def dashboard_test():
+    return render_template("dashboard-hardcoded.html")
+# ? If design is approved, funtionality will be moved here and is renamed as dashboard.html
+
 
 # * REGISTER ----------------
 
@@ -17,7 +25,6 @@ def registration_page():
     return render_template('index.html')
 
 # POST ROUTE -------------------
-
 @app.route('/register/user', methods = ['POST'])
 def create_user():
     if not User.validate_user(request.form):
@@ -37,7 +44,6 @@ def login_page():
     return render_template('login-page.html')
 
 # POST ROUTE ----------------
-
 @app.route('/login/user', methods = ['POST'])
 def login_user():
     user_in_db = User.find_email(request.form)
@@ -52,6 +58,7 @@ def login_user():
     print(session['user_id'])
     print(session['username'])
     return redirect('/user/dashboard')
+
 
 # * HOME --------------------
 
