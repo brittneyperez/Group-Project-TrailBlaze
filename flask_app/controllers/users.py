@@ -2,6 +2,8 @@ from flask_app import app
 from flask import render_template, redirect, request, session, flash
 from flask_app.models.user_model import User
 from flask_app.models.post_model import Posts
+from flask_app.models.like_model import Like
+
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -66,7 +68,11 @@ def login_user():
 def dashboard():
     # if 'user_id' not in session:
     #     return redirect('/login')
+    user_id = session['user_id']
     posts = Posts.all_posts()
+    for post in posts:
+        post.like_count = Like.get_like_count_for_post(post.id)
+        post.liked_by_user = Like.check_user_liked_post(user_id, post.id)
     return render_template('dashboard.html', posts = posts)
 
 # * LOGOUT ------------------
