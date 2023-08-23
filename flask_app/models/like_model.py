@@ -46,18 +46,3 @@ class Like:
         data = {"user_id": user_id, "post_id": post_id}
         result = connectToMySQL(cls.my_db).query_db(query, data)
         return bool(result)  # Return True if the user has liked the post, else False
-
-    @staticmethod
-    def validate_like(like_data):
-        user_id = like_data['user_id']
-        post_id = like_data['post_id']
-        
-        # Get the post's user ID from the database
-        query = "SELECT user_id FROM posts WHERE id = %(post_id)s;"
-        result = connectToMySQL(Like.my_db).query_db(query, {"post_id": post_id})
-        
-        if result and result[0]['user_id'] == user_id:
-            flash("You can't like your own post.")
-            return False
-        
-        return True

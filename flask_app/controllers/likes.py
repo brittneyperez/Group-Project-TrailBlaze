@@ -1,6 +1,4 @@
-from flask import render_template, redirect, flash, request, session
-from flask_app.models.user_model import User
-from flask_app.models.post_model import Posts
+from flask import redirect, flash, session
 from flask_app.models.like_model import Like
 from flask_app import app
 
@@ -13,22 +11,12 @@ def create_like(post_id):
     
     # Check if the user has already liked the post
     user_id = session['user_id']
-    existing_like = Like.check_user_liked_post(user_id, post_id)
-    if existing_like:
-        flash("You have already liked this post.")
-    else:
-        like_data = {
-            "user_id": user_id,
-            "post_id": post_id
-        }
-        
-        # Validate the like
-        if not Like.validate_like(like_data):
-            flash("You can't like your own post.")
-        else:
-            Like.create_like(like_data)
-            flash("Post liked successfully!")
-    
+    like_data = {
+        "user_id": user_id,
+        "post_id": post_id
+    }
+    Like.create_like(like_data)
+
     return redirect("/user/dashboard")
 
 
@@ -38,13 +26,10 @@ def delete_like(post_id):
     if not 'user_id' in session:
         flash("You must be logged in to unlike a post.")
         return redirect("/user/dashboard")
-    
     # Delete like
     like_data = {
         "user_id": session['user_id'],
         "post_id": post_id
     }
     Like.delete_like(like_data)
-    flash("Post unliked successfully!")
-    
     return redirect("/user/dashboard")
