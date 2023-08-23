@@ -37,6 +37,13 @@
         overflow-y: scroll;
         /* background-color: rgba(240, 248, 255, 0.26); */
     }
+    #markerListBody tr{
+        cursor: pointer;
+
+    }
+    #markerListBody tr:hover{
+        background-color: rgba(240, 248, 255, 0.26);
+    }
 </style>
 
 
@@ -71,11 +78,20 @@
                         <th>Lng</th>
                     </tr>
                 </thead>
-                <tbody id="markerListBody"></tbody>
+                <tbody id="markerListBody">
+                    {% for stop in stops %}
+                        <tr>
+                            <td><a class="btn btn-danger btn-sm " href="/remove_marker/{{stop.marker_id}}" role="button">X</a></td>
+                            <td>{{stop['address']}}</td>
+                            <td>{{"%.2f"|format(stop['latitude']|float)}}</td>
+                            <td>{{"%.2f"|format(stop['longitude']|float)}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
         
-        
+        <h4>{{stops}}</h4>
     </div>
 </div>
 

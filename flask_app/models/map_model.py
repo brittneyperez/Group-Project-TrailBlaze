@@ -65,7 +65,7 @@ class Map:
     @classmethod
     def stops_by_map(cls, data):
         query = """
-        SELECT m.id AS marker_id, m.latitude, m.longitude, m.address, mp.id AS map_id
+        SELECT m.id AS marker_id, m.latitude, m.longitude, m.address, mp.name, mp.id AS map_id
         FROM markers m
         JOIN maps mp ON m.maps_id = mp.id
         WHERE mp.id = %(map_id)s;

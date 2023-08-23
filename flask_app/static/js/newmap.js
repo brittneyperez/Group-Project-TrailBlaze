@@ -130,8 +130,9 @@ async function openInfoWindow(location) {
 function confirmAddMarker(lat,lng, address) {
   addMarker(lat,lng, address);
   closeInfoWindow();
-  updateMarkerListBody(lat, lng, address);
+  updateMarkerListBody();
   addMarkerToDatabase(lat, lng, address);
+  markers= [];  
 }
 
 function addMarker(lat, lng, title) {
@@ -150,8 +151,7 @@ function updateMarkerListBody() {
   if (markerListBodyElement) {
     markerListBodyElement.innerHTML += markers.map((marker) => `<tr><td><button class='btn btn-sm btn-danger'> X </button></td><td> ${marker.title}</td><td> ${marker.lat.toFixed(2)}</td><td>  ${marker.lng.toFixed(2)}</td></tr>`)
     .join("");
-    console.log(markerListBodyElement.innerHTML);
-    console.log(markers);
+
 }
 }
 function closeInfoWindow() {
