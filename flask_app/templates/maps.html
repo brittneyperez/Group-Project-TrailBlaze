@@ -19,7 +19,7 @@
 {% block content %}
   <style>
   #position_btn {
-    margin-top: 5rem;
+    margin-top: 5.5rem;
   }
   </style>
   
@@ -35,20 +35,29 @@
       <!-- Changes Needed: Btns are to be centered when screen size < md -->
       <div id="buttons__array" class="position-absolute top-50 start-50 translate-middle bg-dark bg-opacity-25 col-5">
         <div class="w-100" style="height: 15rem;">
-          
+          {% with messages = get_flashed_messages(with_categories = true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == 'invalidMapAuthor' %}
+                                    <p class="alert alert-danger">{{ message }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
           <div id="Add_and_Existing_Btns" class="d-md-flex justify-content-around align-items-center">
+            
             <a href="/newmap"><input type="button" id="position_btn" class="btn btn-secondary fw-semibold" value="New Map" ></a>
             
             <div class="dropdown" id="position_btn">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="fw-semibold">Existing Maps</span>
               </a>
+              
               <ul class="dropdown-menu">
                 {% if existing_maps == [] %}
                   <li><a class="dropdown-item" href="#">No Existing Maps</a></li>
                 {% endif %}
                 {% for map in existing_maps %}
-                
                   <li><a class="dropdown-item" href="/maps/{{session.username}}/{{map.id}}">{{map.name}}</a></li>
                 {% endfor %}
               </ul>

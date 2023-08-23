@@ -131,6 +131,7 @@ function confirmAddMarker(lat,lng, address) {
   addMarker(lat,lng, address);
   closeInfoWindow();
   updateMarkerList(lat, lng, address);
+  addMarkerToDatabase(lat, lng, address);
 }
 
 function addMarker(lat, lng, title) {
@@ -159,6 +160,36 @@ function closeInfoWindow() {
     infoWindow = null;
   }
 }
+
+function addMarkerToDatabase(lat, lng, address) {
+  mapId = getMapIdFromURL();
+  console.log('mapId: ' + mapId)
+  console.log('sending request to add marker to database')
+  $.ajax({
+    url: '/add_marker',
+    type: 'POST',
+    data: {
+      'map_id': mapId,
+      'lat': lat,
+      'lng': lng,
+      'address': address
+    },
+    success: function(response) {
+      console.log(response);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+function getMapIdFromURL() {
+  const url = window.location.href;
+  urlParsed = url.split('/');
+  return urlParsed[urlParsed.length - 1];
+}
+
+
 
 function clearMarkers() { 
   markers.forEach((marker) => marker.setMap(null));
