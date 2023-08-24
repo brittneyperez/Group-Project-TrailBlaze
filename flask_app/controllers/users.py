@@ -3,7 +3,6 @@ from flask import render_template, redirect, request, session, flash
 from flask_app.models.user_model import User
 from flask_app.models.post_model import Posts
 from flask_app.models.like_model import Like
-
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
