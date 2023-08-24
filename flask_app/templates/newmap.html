@@ -9,7 +9,7 @@
         <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
             <a href="/user/dashboard" class="mb-0 text-secondary fw-medium text-decoration-none">Dashboard</a>
             <a href="/maps" class="mb-0 text-secondary fw-medium text-decoration-none">Maps</a>
-            <a href="/profile" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
+            <a href="#" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
             <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
         </div>
     </header>
@@ -99,19 +99,21 @@
     <!-- <h1>{{username}} {{maps_id}}</h1> -->
     <div id="mapwrapper" class="row d-flex justify-content-center gap-2">
         
-        <div id="buttonarray" class="text-center my-3 p-0">
+        <div id="buttonarray" class="col-12 col-sm-10 text-center my-3 p-0">
             <div class="col-5 mx-auto mb-3" style="width: 60%">
                 <input type="text" class="form-control" id="locationInput" placeholder="Enter a location">
             </div>
-            <div class="d-flex justify-content-around w-75 m-auto gap-5">
-                <button class="btn btn-light fw-semibold" onclick="clearMarkers()" id="clearMarkers">Clear Markers</button>
-                <span><h6>hmm...</h6></span>
-                <button class="btn btn-primary fw-semibold" id="routeMap">Begin Journey!</button>
+            <div class="d-flex justify-content-center w-75 m-auto gap-3">
+                <button class="btn btn-sm btn-light fw-semibold px-3" onclick="clearMarkers()" id="clearMarkers">Clear Markers</button>
+                <!-- <span><h6>hmm...</h6></span> -->
+                <button class="btn btn-sm btn-primary fw-semibold px-3" id="routeMap">Begin Journey!</button>
+                <a href="/maps/{{session['username']}}/{{map.id}}/delete"><button class="btn btn-sm btn-danger fw-semibold px-3" >Delete Map</button></a>
+                <button class="btn btn-sm btn-success fw-semibold px-3" id="deleteMarkers">Share Map!</button>
             </div>
-            <div class="d-flex justify-content-around m-auto w-50 gap-5 mt-3">
-                <a href="/maps/{{session['username']}}/{{map.id}}/delete"<button class="btn btn-danger fw-semibold" >Delete Map</button></a>
+            <!-- <div class="d-flex justify-content-around m-auto w-50 gap-5 mt-3">
+                <a href="/maps/{{session['username']}}/{{map.id}}/delete"><button class="btn btn-danger fw-semibold" >Delete Map</button></a>
                 <button class="btn btn-success fw-semibold" id="deleteMarkers">Share Map!</button>
-            </div>
+            </div> -->
         </div>
         
         <div id="FlxLeft__Map" class="col-10 col-lg-5 mb-3">
@@ -143,7 +145,6 @@
                         <input type="hidden" name="lng" value="{{stop['longitude']}}">
                         <input type="hidden" name="address" value="{{stop['address']}}">
                     {% endfor %}
-
                     </form>
                 </tbody>
                 

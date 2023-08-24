@@ -35,8 +35,7 @@ def create_user():
 
 @app.route('/register/cookie')
 def cookie():
-   
-    return render_template('landing-page.html')
+    return render_template('landing-page_COPY_V2.html')
 
 
 # * LOGIN -------------------
