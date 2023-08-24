@@ -1,0 +1,95 @@
+<style>
+    #deleteprompt{
+        margin:auto;
+        height: 95%;
+        /* width: 50%; */
+        padding: 10px;
+        /* background-color: rgba(23, 78, 24, 0.112); */
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        /* border: 5px inset rgba(0, 0, 0, 0.28) */
+        border-radius: 8%;
+    }
+    #promptmain{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(73, 70, 65, 0.346);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+    }
+    #promptmain > #promptunderlay{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        /* background-color: rgba(0, 0, 0, 0.5); */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+    }
+    #promptmain > #promptunderlay > #promptcontent{
+	/* Position visible dialog near the top of the window */
+	margin-top:10vh;
+
+	/* Sizing for visible dialog */
+	width:80%;
+	max-width:600px;
+
+	/* Display properties for visible dialog*/
+	border:solid 1px #9999997a;
+	border-radius:8px;
+	box-shadow: 1px 50px 50px 1px rgba(0, 0, 0, 0.412);
+	background-color:rgba(64, 111, 88, 0.177);
+	padding:20px;
+
+	/* Animate when opening */
+	animation-name:zoomIn;
+	animation-duration:150ms;
+	animation-timing-function: ease;
+    }
+
+    #innerDeletePrompt{
+        position: relative;
+        /* background-color: rgba(80, 109, 88, 0.129); */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* align-items: center; */
+        width: 100%;
+        /* border: 3vh solid rgba(268, 180, 145, 0.074); */
+        border-radius: 8%;
+        padding: 1rem;
+        text-align: center;
+    }
+    .choiceArray{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+    }
+
+</style>
+<div id="promptmain">
+    <div id="promptunderlay">
+        <div id="promptcontent">
+            <div id="deleteprompt">
+                <div id="innerDeletePrompt">
+                    <div>
+                        <h2>--Delete {{map.name}}--</h2>
+                        <h4>are you sure?</h4>
+                    </div>
+                    <div class="choiceArray">
+                        <button id="deleteYes"class="btn btn-danger" hx-post="/maps/{{username}}/{{map_id}}/delete" hx-target="#mainMapWrap" hx-swap="outerHTML 1s transition:fade" hx-swap-oob="true">Delete!</button>
+                        <button id="deleteNo" class="btn btn-secondary" hx-put="/maps/{{username}}/{{map_id}}/delete" hx-target="#deletePrompt" hx-swap="outerHTML transition:true" hx-swap-oob="true">nevermind</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

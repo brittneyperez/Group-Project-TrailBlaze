@@ -161,6 +161,15 @@ Adrian - 22 Aug, 12:18pm
 - Adjusted username regex to exclude '@' character
 - Adjusted registraion to flash
 
+Ibrahim - 22aug, 530pm
+
+not merged yet
+
+- marker creation on map now enters marker into database
+- map model now has function stops_by_map that retrieves all markers with given map id and returns them as a list
+- adjusted the styling on #position-btn in maps.html from 5 to 5.5rem to compensate for the margin starting from the top of the button rather than the center
+- added flash and user validation when session['username'] does not match maps/USERNAME/id 
+- 
 
 Bri - 23 Aug, ~3am
 - Finished prototype of "dashboard.html"
@@ -178,3 +187,21 @@ Pending Functionality:
 
 Adrian - 22 Aug, 2:38pm
 - Adjusted username regex to exclude all special characters except - and _
+
+Bri - 24 Aug, ~3am
+- Initialized styles for "landing-page.html" (previously "landing.html")
+    - has fade in effect upon button click
+    - fixed: login_form has been optimized to not appear at the bottom of pg
+- revamped "dashboard.html" with new design
+Pending:
+- When `render_template(landing-page.html)`: Upon invalid submission, the forms should take the user back to the landing page but with the errors presented. The errors are present as the action route shows in the url and upon btn click, the errors are there, however, this is problem: the .card needs to be visible with validations. It should only be hidden when initially landing on the page.
+- jinja conditionals are needed to:
+    - display the poster's username
+    - to check if the post has file upload, otherwise the post_content should take up its container
+    - if pfp is implemented, set a default user-pfp. Only show the user's pfp if they upload their own.
+
+Bri - 24 Aug, ~3am
+- increased responsiveness of new-post.html
+- updated edit-post.html to follow same template as new-post.html
+
+Pending:
