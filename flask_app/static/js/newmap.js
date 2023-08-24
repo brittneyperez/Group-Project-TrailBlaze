@@ -131,12 +131,12 @@ async function openInfoWindow(location) {
 function confirmAddMarker(lat,lng, address) {
   addMarker(lat,lng, address);
   closeInfoWindow();
-  updateMarkerListBody();
   addMarkerToDatabase(lat, lng, address);
+  updateMarkerListBody();
 }
 function addMarker(lat, lng, title) {
   const marker = new google.maps.Marker({
-    position: { lat, lng },
+    // position: { lat, lng },
     lat: lat,
     lng: lng,
     map: map,
