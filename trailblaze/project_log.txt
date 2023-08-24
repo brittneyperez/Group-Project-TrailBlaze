@@ -200,8 +200,13 @@ Pending:
     - to check if the post has file upload, otherwise the post_content should take up its container
     - if pfp is implemented, set a default user-pfp. Only show the user's pfp if they upload their own.
 
-Bri - 24 Aug, ~3am
+Bri - 24 Aug, ~5am
 - increased responsiveness of new-post.html
 - updated edit-post.html to follow same template as new-post.html
-
 Pending:
+- post-comments.html is stylized
+Pending:
+- jinja conditionals are needed:
+    - data needs to passed in where comments start with a "!". Following are needed: poster and commenter's username
+    - to check if the post has file upload, otherwise the post_content should take up its container
+

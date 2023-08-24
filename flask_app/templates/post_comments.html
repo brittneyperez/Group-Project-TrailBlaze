@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Comments{% endblock %}
 
-{% block maps_header %}
+{% block header %}
 <header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
     <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
     <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
-        <a href="/user/dashboard" class="mb-0 text-white fw-bold text-decoration-none">Dashboard</a>
+        <a href="/user/dashboard" class="mb-0 text-secondary fw-medium text-decoration-none">Dashboard</a>
         <a href="/maps" class="mb-0 text-secondary fw-medium text-decoration-none">Maps</a>
         <a href="#" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
         <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
@@ -16,32 +16,60 @@
 
 
 {% block content %}
-    <div class="container">
-        <h2>{{ post.title }} - Comments</h2>
-        <p>{{ post.text_content }}</p>
-        <hr>
-        <h4>Add Comment</h4>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="flashes">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-        <form action="/post/{{ post.id }}/comments" method="post">
-            <div class="mb-3">
-                <textarea class="form-control" name="text_content" id="text_content" rows="3" placeholder="Add your comment"></textarea>
+<div class="container-fluid flex-grow-1">
+    <div id="Comments_Thread__Div">
+        <h2 class="text-white text-center fw-bold mb-3">Add a Comment</h2>
+        <div class="col-11 col-md-10 mx-auto bg-white rounded-2 p-5">
+            <h3 class="fw-bold"><span class="fw-semibold">Thread:</span> {{ post.title }}</h3>
+            <p>{{ post.text_content }}</p>
+            
+            <div id="Comments__Form">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="text-danger text-center">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="/post/{{ post.id }}/comments" method="post">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="text_content" id="text_content" rows="3" placeholder="Add your comment"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-dark">Submit Comment</button>
+                    </div>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Comment</button>
-        </form>
-        <hr>
-        <h4>Comments</h4>
-        <ul>
+            
+            <h4 class="fw-semibold my-3">
+                <!-- ! Maybe we can add a comments counter in the <span> of <h4>? -->
+                All Comments <span class="text-secondary">3</span>
+            </h4>
+            
+            <!-- ! Is hardcoded for now, needs to be passed in: username, created_at -->
             {% for comment in comments %}
-                <li>{{ comment.text_content }}</li>
+            <div id="COMMENT" class="border border-2 mb-2">
+                <table class="table table-hover table-borderless mb-0">
+                    <tr class="d-flex row px-3">
+                        <div class="col">
+                            <td id="Flex__UserPFP_Username" class="d-flex justify-content-start align-items-center gap-3">
+                                <p class="mb-0">
+                                    <span class="fw-semibold">@username123</span>
+                                    <span class="text-secondary fst-italic">• {{ post.created_at.strftime('%d %b %Y • %I:%M%p') }}</span>
+                                </p>
+                            </td>
+                            <td class="col">
+                                <p class="col-12 col-lg-8 order-2 order-lg-1 text-start mb-lg-0">{{ comment.text_content }}</p>
+                            </td>
+                            <td class="d-flex justify-content-end pb-3">
+                                <a href="#" class="text-decoration-none fw-bold text-danger">× DELETE</a>
+                            </td>
+                        </div>
+                    </tr>
+                </table>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
+</div>
 {% endblock %}
