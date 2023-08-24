@@ -15,6 +15,16 @@ class Map:
     def create_map(cls, data):
         query = "INSERT INTO maps (name, user_id) VALUES (%(name)s, %(user_id)s);"
         return connectToMySQL(cls.db).query_db(query, data)
+    
+    @classmethod
+    def delete_map(cls, data):
+        query = "DELETE FROM maps WHERE maps.id = %(id)s;"
+        return connectToMySQL(cls.db).query_db(query, data)
+    
+    @classmethod
+    def rename_map(cls, data):
+        query = "UPDATE maps SET name = %(name)s WHERE maps.id = %(id)s;"
+        return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
     def get_map(cls, data):
@@ -60,13 +70,12 @@ class Map:
             'map_author': current_map.author,
             'map_is_public': current_map.is_public,
         } 
-        stops 
         return cls(result[0])
     
     @classmethod
     def stops_by_map(cls, data):
         query = """
-        SELECT m.id AS marker_id, m.latitude, m.longitude, m.address, mp.id AS map_id
+        SELECT m.id AS marker_id, m.latitude, m.longitude, m.address, mp.name, mp.id AS map_id
         FROM markers m
         JOIN maps mp ON m.maps_id = mp.id
         WHERE mp.id = %(map_id)s;
@@ -126,5 +135,10 @@ class Marker:
     @classmethod
     def delete_marker(cls, data):
         query = "DELETE FROM markers WHERE markers.id = %(id)s;"
+        return connectToMySQL(cls.db).query_db(query, data)
+    
+    @classmethod
+    def delete_all_markers_by_map(cls, data):
+        query = "DELETE FROM markers WHERE markers.maps_id = %(map_id)s;"
         return connectToMySQL(cls.db).query_db(query, data)
 

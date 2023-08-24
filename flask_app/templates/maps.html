@@ -3,13 +3,13 @@
 
 {% block title %}Maps{% endblock %}
 
-{% block maps_header %}
+{% block header %}
   <header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
     <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
     <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
       <a href="/user/dashboard" class="mb-0 text-secondary fw-medium text-decoration-none">Dashboard</a>
       <a href="/maps" class="mb-0 text-white fw-bold text-decoration-none">Maps</a>
-      <a href="/profile" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
+      <a href="#" class="mb-0 text-secondary fw-medium text-decoration-none">Profile</a>
       <a href="/logout" class="btn btn-light px-3 fw-semibold">Logout</a>
     </div>
   </header>
@@ -71,28 +71,6 @@
     </div>
     
   </div>
-  <p>{{session.username}}</p>
-  <!-- <p>{{existing_maps}}</p>
-  {% for map in existing_maps %}
-    <p>{{map.map_name}}</p>
-  {% endfor %} -->
-
-    
-    
-    <!-- <div id="buttonsarray">
-      <a href="/newmap"><input type="button" class="btn btn-secondary" value="New Map" > </a>
-      <div class="dropdown show">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Existing Maps
-        </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div>
-    </div> -->
-    
   </div>
   
   <script>

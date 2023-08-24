@@ -6,7 +6,8 @@ function get_user_loc(){
 }
 let map, infoWindow;
 let markers = [];
-let markerListElement;
+let pins = [];
+let markerListBodyElement;
 let autocomplete;
 
 async function initMap() {
@@ -23,7 +24,7 @@ async function initMap() {
     title: "Your Location",
   });
 
-  markerListElement = document.getElementById("markerList");
+  markerListBodyElement = document.getElementById("markerListBody");
 
   google.maps.importLibrary("places").then(() => {
     const locationInput = document.getElementById("locationInput");
@@ -130,13 +131,12 @@ async function openInfoWindow(location) {
 function confirmAddMarker(lat,lng, address) {
   addMarker(lat,lng, address);
   closeInfoWindow();
-  updateMarkerList(lat, lng, address);
   addMarkerToDatabase(lat, lng, address);
+  updateMarkerListBody();
 }
-
 function addMarker(lat, lng, title) {
   const marker = new google.maps.Marker({
-    position: { lat, lng },
+    // position: { lat, lng },
     lat: lat,
     lng: lng,
     map: map,
@@ -144,14 +144,22 @@ function addMarker(lat, lng, title) {
   });
   markers.push(marker);
 }
-
-function updateMarkerList() {
-  if (markerListElement) {
-    markerListElement.innerHTML = markers
-    .map((marker, index) => `<p>Marker ${index + 1}: ${marker.title}: ${marker.lat.toFixed(2)},  ${marker.lng.toFixed(2)}</p>`)
+function updateMarkerListBody() {
+  if (markerListBodyElement) {
+    markerListBodyElement.innerHTML += markers.map((marker) => `
+    <tr>
+      <td>
+        <a href="/delete_marker" <button class='btn btn-sm btn-danger'> X </button></a>
+      </td>
+        <td> ${marker.title}</td>
+        <td> ${marker.lat.toFixed(2)}</td>
+        <td> ${marker.lng.toFixed(2)}</td>
+      </tr>
+    <input type="hidden" name="lat" value="${marker.lat}">
+    <input type="hidden" name="lng" value="${marker.lng}">
+    <input type="hidden" name="address" value="${marker.title}">`)
     .join("");
-    console.log(markerListElement.innerHTML);
-    console.log(markers);
+
 }
 }
 function closeInfoWindow() {
@@ -194,7 +202,7 @@ function getMapIdFromURL() {
 function clearMarkers() { 
   markers.forEach((marker) => marker.setMap(null));
   markers = [];
-  updateMarkerList();
+  updateMarkerListBody();
 }
 
 
