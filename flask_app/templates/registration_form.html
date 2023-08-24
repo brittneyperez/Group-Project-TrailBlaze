@@ -1,0 +1,80 @@
+<div id="Form__Container" class="col-11 mx-auto text-center">
+    <div id="Registration_Form_" class="p-3 mb-3 bg-white rounded-2">
+        <p class="text-secondary fw-semibold mb-1">New here?</p>
+        <h3 class="fw-bold mb-4">Register</h3>
+        
+        {% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'category7' %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/register/user" method="POST">
+            <!-- Email Input -->
+            <div id="Email_Input__Flex_Div" class="form-group row px-3 mb-3">
+                <div class="col">
+                    <input type="email" name="email" placeholder="Email" class="form-control">
+                    {% with messages = get_flashed_messages(with_categories = true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == 'category2' %}
+                                    <p class="alert alert-danger">{{ message }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+            <!-- Username Input -->
+            <div id="Username_Input__Flex_Div" class="form-group row px-3 mb-3">
+                <div class="col">
+                    <input type="text" name="username" placeholder="Username" class="form-control">
+                        {% with messages = get_flashed_messages(with_categories = true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    {% if category == 'category4' %}
+                                        <p class="alert alert-danger">{{ message }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                </div>
+            </div>
+            <!-- Password Input -->
+            <div id="Password_Input__Flex_Div" class="form-group row px-3 mb-3">
+                <div class="col">
+                    <input type="password" name="password" placeholder="Password" class="form-control">
+                        {% with messages = get_flashed_messages(with_categories = true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    {% if category == 'category3' %}
+                                        <p class="alert alert-danger">{{ message }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                </div>
+            </div>
+            <div id="ConfirmPassword_Input__Flex_Div" class="form-group row px-3 mb-3">
+                <div class="col">
+                    <input type="password" name="confirm" placeholder="Confirm Password" class="form-control">
+                        {% with messages = get_flashed_messages(with_categories = true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    {% if category == 'category1' %}
+                                        <p class="alert alert-danger">{{ message }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                </div>
+            </div>
+            <div class="col">
+                <input type="submit" value="Register" class="mt-4 btn btn-dark btn-lg px-3 fw-bold">
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+
+{% block title %}TrailBlaze{% endblock %}
+
+{% block header %}
+<header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
+    <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
+    <span class="invisible">
+        <a href="#" class="btn btn-secondary px-3 fw-semibold">Disabled</a>
+    </span>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid flex-grow-1">
+    <style>
+        .card {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 0.5s, opacity 0.5s;
+        }
+        .show-card {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 1s;
+        }
+        
+        #loginCard {
+            top: -465px;
+        }
+    </style>
+    
+    <div id="FlexDiv__LandingPg" class="col-10 mx-auto">
+        <h2 class="text-white text-center fw-bold mb-3">Welcome</h2>
+        
+        <div id="Flex_Btns" class="d-flex justify-content-center gap-3">
+            <button id="registerBtn" class="btn btn-lg btn-light fw-semibold">Register</button>
+            <button id="loginBtn" class="btn btn-lg btn-light fw-semibold">Login</button>
+        </div>
+    </div>
+    
+    <div id="registerCard" class="card col col-md-8 col-lg-6 mx-auto mt-5">
+        {% include "registration_form.html" %}
+    </div>
+    <div id="loginCard" class="card col col-md-8 col-lg-6 mx-auto mt-5 row d-flex align-top">
+        {% include "login_form.html" %}
+    </div>
+</div>
+
+<script>
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const loginCard = document.getElementById("loginCard");
+    const registerCard = document.getElementById("registerCard");
+    
+    registerBtn.addEventListener("click", () => {
+        registerCard.classList.add("show-card");
+        loginCard.classList.remove("show-card");
+    });
+
+    loginBtn.addEventListener("click", () => {
+        loginCard.classList.add("show-card");
+        registerCard.classList.remove("show-card");
+    });
+</script>
+{% endblock %}
+```

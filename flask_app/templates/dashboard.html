@@ -3,7 +3,7 @@
 
 {% block title %}Dashboard{% endblock %}
 
-{% block maps_header %}
+{% block header %}
 <header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
     <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
     <div id="User_Nav__Controls" class="d-flex justify-content-between align-items-center gap-3">
@@ -19,50 +19,86 @@
     <div class="container-fluid flex-grow-1">
         <div id="FlexDiv__Dashboard">
             <h2 class="text-white text-center fw-bold mb-3">Dashboard</h2>
-            <div class="col-10 mx-auto bg-white rounded-2 p-5">
-                <div class="text-center mb-1">
+            <div class="col-11 col-md-10 mx-auto bg-white rounded-2 p-5 pt-4">
+                <div class="text-center mb-4">
                     <a href="/user/create_post" class="mb-0 fw-medium btn btn-success">Create Post</a>
                 </div>
-                    <div id="Flex_Post_Contents" class="d-flex flex-wrap gap-3">
-                        <!-- Loop through the posts -->
-                        {% for post in posts %}
-                        <div class="col-8 m-3">
-                            <div class="bg-white rounded-1 border border-2 p-2">
-                                <h4>{{ post.title }}</h4>
-                                <p>{{ post.text_content }}</p>
-                                <div class="d-flex justify-content-end align-items-center gap-2">
+                {% for post in posts %}
+                <div id="PostContent__TableFmt" class="border border-2 my-2">
+                    <table class="table table-hover table-borderless mb-0">
+                        <tr class="row d-flex px-3">
+                            <div class="col">
+                                <!-- PFP - Username - Timestamp - Marker -->
+                                <td id="Flex__UserInfo_Marker" class="d-flex justify-content-between align-items-center gap-3">
+                                    <div class="d-flex justify-content-start align-items-center gap-3">
+                                        <img src="../static/imgs/abstract-user-flat.png" alt="user-pfp" style="height: 50px">
+                                        <p class="mb-0">
+                                            <!-- ! Access poster's username and pfp, users should have default pfp if they've not uploaded one yet -->
+                                            <span class="fw-semibold">@{{ post.user_id }}</span>
+                                            <span class="text-secondary fst-italic">• {{ post.created_at.strftime('%d %b %Y') }}</span>
+                                        </p>
+                                    </div>
+                                    <a href="#">
+                                        <img src="../static/imgs/map-marker.png" alt="marker" style="height: 50px;">
+                                    </a>
+                                </td>
+                                <!-- Post Title & Content -->
+                                <td class="col">
+                                    <h5>{{ post.title }}</h5>
+                                    <div class="col d-lg-flex justify-content-lg-between gap-lg-3">
+                                        <img src="../static/imgs/abstract-user-flat.png" alt="img-placeholder" class="img-fluid mx-auto d-flex align-self-center col-12 col-lg-4 order-1 order-lg-2" style="max-width: 150px; max-height: 150px;">
+                                        
+                                        <!-- ! conditional jinja needed to confirm if an img upload exists (may need adjusting)
+                                        {% if image_exists %}
+                                            <img src="../static/imgs/abstract-user-flat.png" alt="img-placeholder" class="col-11 col-md-4 order-1 order-md-2" style="height: 100px;"> 
+                                        {% endif %}
+                                        ! otherwise, use this style, instead of the bottom <p>:
+                                        <p class="col-12 {% if not image_exists %}col-md-12{% endif %} order-2 order-md-1 text-start mb-md-0">{{ post.text_content }}</p>
+                                        -->
+                                        
+                                        <p class="col-12 col-lg-8 order-2 order-lg-1 text-start mb-lg-0">{{ post.text_content }}</p>
+                                    </div>
+                                </td>
+                                <!-- Linked Actions -->
+                                <td class="d-flex justify-content-sm-end justify-content-center gap-2 pb-3">
                                     {% if session.user_id == post.user_id %}
-                                        <a href='/post/edit/{{post.id}}' class="mb-0 btn btn-secondary text-decoration-none">Edit</a>
+                                    <a href="/post/edit/{{post.id}}" class="text-decoration-none fw-bold text-dark d-flex align-items-center gap-1">
+                                        <img src="../static/imgs/post-icon.png" alt="post-icon" style="height: 25px;">
+                                        <span>EDIT</span>
+                                    </a>
                                     {% endif %}
                                     
-                                    <span>{{ post.like_count }} Likes</span>
                                     {% if post.liked_by_user %}
-                                        <form action="/unlike/{{ post.id }}" method="post" class="like-form">
-                                            <button type="submit" class="mb-0 btn btn-secondary text-decoration-none">Unlike</button>
-                                        </form>
+                                    <form action="/unlike/{{ post.id }}" method="post" class="like-form d-flex align-items-center gap-1">
+                                        <button type="submit" class="btn btn-link text-decoration-none fw-bold text-dark p-0">
+                                            <img src="../static/imgs/closed-heart-icon.png" alt="liked-heart" style="height: 15px;">
+                                            {{ post.like_count }}
+                                        </button>
+                                    </form>
                                     {% else %}
-                                        <form action="/like/{{ post.id }}" method="post" class="like-form">
-                                            <button type="submit" class="mb-0 btn btn-secondary text-decoration-none">Like</button>
-                                        </form>
+                                    <form action="/like/{{ post.id }}" method="post" class="like-form d-flex align-items-center gap-1">
+                                        <button type="submit" class="btn btn-link text-decoration-none fw-bold text-dark p-0">
+                                            <img src="../static/imgs/open-heart-icon.png" alt="unliked-heart" style="height: 15px;">
+                                            {{ post.like_count }}
+                                        </button>
+                                    </form>
                                     {% endif %}
                                     
-                                    <a href='/post/{{ post.id }}/comments' class="mb-0 btn btn-secondary text-decoration-none">View Comments</a>
-                                </div>
+                                    <a href="/post/{{ post.id }}/comments" class="text-decoration-none fw-bold text-dark">
+                                        <img src="../static/imgs/speech-bubble.png" alt="comment-bubble" style="height: 25px;">
+                                        <span>COMMENT</span>
+                                    </a>
+                                    
+                                    {% if session.user_id == post.user_id %}
+                                    <a href="#" class="text-decoration-none fw-bold text-danger me-sm-3">× DELETE</a>
+                                    {% endif %}
+                                </td>
                             </div>
-                        </div>
-                        {% endfor %}
-                        
-                    </div>
-                    <!-- User pfp (to left) -->
-                    <div id="Flex_User_pfp" class="col-3 m-3 d-flex align-items-end">
-                        <div id="UserPfp" class="bg-white rounded-1 border border-2 p-2 text-center">
-                            <p class="fw-semibold">@{{ session.username }}</p>
-                            <h3>PFP</h3>
-                            <p class="fw-medium text-secondary mb-0">Aug 21, 2023 HH:mm</p>
-                        </div>
-                    </div>
+                            
+                        </tr>
+                    </table>
                 </div>
-                
+                {% endfor %}
             </div>
         </div>
     </div>
