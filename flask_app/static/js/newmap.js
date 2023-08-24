@@ -132,34 +132,36 @@ function confirmAddMarker(lat,lng, address) {
   addMarker(lat,lng, address);
   closeInfoWindow();
   addMarkerToDatabase(lat, lng, address);
-  updateMarkerListBody();
+  // updateMarkerListBody();
 }
 function addMarker(lat, lng, title) {
   const marker = new google.maps.Marker({
-    // position: { lat, lng },
+    position: { lat, lng },
     lat: lat,
     lng: lng,
     map: map,
     title: title,
   });
   markers.push(marker);
+  updateMarkerListBody(lat, lng, title);
 }
-function updateMarkerListBody() {
+var counter = 16.349;
+function updateMarkerListBody(lat, lng, title){
   if (markerListBodyElement) {
-    markerListBodyElement.innerHTML += markers.map((marker) => `
+    markerListBodyElement.innerHTML+= ` 
     <tr>
       <td>
-        <a href="/delete_marker" <button class='btn btn-sm btn-danger'> X </button></a>
+        <button class='btn btn-sm btn-danger' id="${counter*-1.52}" value="0" name='marker_id' hx-delete="/marker"  > X </button>
       </td>
-        <td> ${marker.title}</td>
-        <td> ${marker.lat.toFixed(2)}</td>
-        <td> ${marker.lng.toFixed(2)}</td>
+        <td> ${title}</td>
+        <td> ${lat.toFixed(2)}</td>
+        <td> ${lng.toFixed(2)}</td>
       </tr>
-    <input type="hidden" name="lat" value="${marker.lat}">
-    <input type="hidden" name="lng" value="${marker.lng}">
-    <input type="hidden" name="address" value="${marker.title}">`)
-    .join("");
-
+    <input type="hidden" name="map_id" id="${counter}" value="">
+    <input type="hidden" name="lat" value="${lat}">
+    <input type="hidden" name="lng" value="${lng}">
+    <input type="hidden" name="address" value="${title}">`;
+    counter += 1;
 }
 }
 function closeInfoWindow() {
@@ -181,9 +183,10 @@ function addMarkerToDatabase(lat, lng, address) {
       'lat': lat,
       'lng': lng,
       'address': address
-    },
+    }, 
     success: function(response) {
-      console.log(response);
+      document.getElementById(counter-1).value = response['marker_id'];
+      document.getElementById((counter-1)*-1.52).value= response['marker_id'];
     },
     error: function(error) {
       console.log(error);

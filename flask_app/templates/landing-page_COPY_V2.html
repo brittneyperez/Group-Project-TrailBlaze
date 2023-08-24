@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+
+{% block title %}TrailBlaze{% endblock %}
+
+{% block header %}
+<header id="TrailBlaze__Header" class="bg-dark d-flex align-items-center justify-content-between py-2 px-3 mb-3">
+    <a href="/user/dashboard" class="fs-2 fw-bold text-decoration-none text-white">TrailBlaze</a>
+    <span class="invisible">
+        <a href="#" class="btn btn-secondary px-3 fw-semibold">Disabled</a>
+    </span>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid flex-grow-1" style="height : calc(100vh-100px);">
+<style>
+    body {
+    margin: 0;
+    padding: 0;
+    }
+    @keyframes fade-in {
+     from { opacity: 0; }
+   }
+
+   @keyframes fade-out {
+     to { opacity: 0; }
+   }
+
+   @keyframes slide-from-right {
+     from { transform: translateX(40vw);}
+     from { opacity: 0;}
+   }
+
+   @keyframes slide-to-left {
+     to { transform: translateX(-40vw);}
+     to { opacity: 0;}
+   }
+   @keyframes slide-from-left {
+     from { transform: translateX(-40vw);}
+    }
+    @keyframes slide-to-right {
+     to { transform: translateX(40vw);}
+    }
+
+    @keyframes slide-up {
+     from { transform: translateY(90px);}
+    }
+
+    @keyframes slide-down {
+     to { transform: translateY(-90px);}
+    }
+
+    .slide-it {
+      view-transition-name: slide-it;
+    }
+
+    .slide-it-back{
+        view-transition-name: slide-it-back;
+    }
+
+    ::view-transition-old(slide-it){
+        animation: 100ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+        696ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+    }
+
+    ::view-transition-new(slide-it){
+        animation: 90ms cubic-bezier(.84,.7,.84,.37) 45ms both fade-in,
+        696ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+    }
+
+    ::view-transition-old(slide-it-back){
+        animation: 100ms cubic-bezier(.84,.7,.84,.37) both fade-out,
+        696ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
+    }
+
+    ::view-transition-new(slide-it-back){
+        animation: 220ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+        696ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-left;
+    }
+
+    ::view-transition-old(slide-it-down){
+        animation: 350ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+        600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-down;
+    }
+
+    ::view-transition-new(slide-it-down){
+        animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+        600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-up;
+    }
+
+
+    .card {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s linear 0.5s, opacity 0.5s;
+    }s
+    .show-card {
+        visibility: visible;
+        opacity: 1;
+        transition:right opacity 1s;
+    }
+    
+    #loginCard {
+        top: -465px;
+    }
+</style>
+<div id="FlexDiv__LandingPg" class="col col-md-8 col-lg-6 mx-auto mt-5 slide-it-down ">
+    <div style="height:20vh"></div>
+    <h2 class="text-white text-center fw-bold mb-3 ">Welcome</h2>
+    <div id="Flex_Btns" class="d-flex justify-content-center gap-3">
+        <button id="registerBtn" class="btn btn-lg btn-light fw-semibold"
+                hx-target="#FlexDiv__LandingPg"" 
+                hx-swap-oob="true" 
+                hx-swap="outerHTML transition:true"" 
+                hx-put="/reg_request" 
+                hx-on:after-request="document.getElementById('FlexDiv__LandingPg').classList.add('card');">Register</button>
+        <button id="loginBtn"class="btn btn-lg btn-light fw-semibold"
+                hx-target="#FlexDiv__LandingPg"" 
+                hx-swap-oob="true" 
+                hx-swap="outerHTML transition:true"" 
+                hx-put="/log_request" 
+                hx-on:after-request="document.getElementById('FlexDiv__LandingPg').classList.add('card');">Login</button>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+```

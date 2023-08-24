@@ -1,4 +1,5 @@
 from flask_app import app, htmx 
+
 from flask import render_template, redirect, request, session, flash, jsonify
 from flask_app.models.map_model import Map, Marker
 from flask_app.models.user_model import User
@@ -151,11 +152,23 @@ def add_marker():
     }
     map_stops = Map.stops_by_map(map_stops_data)
     print('MAP STOPS ARE ', map_stops)
-    return jsonify({'success': True}, {'marker_id': map_stops[-1]['marker_id']})
+    marker_id = map_stops[-1]['marker_id']
+    
 
-@app.route('/delete_marker', methods=['DELETE'])
-def delete_marker():
-    if htmx:
+    return jsonify({'marker_id': marker_id })
+
+@app.route('/marker/<int:id>/delete', methods=['POST', 'PUT', 'GET', 'DELETE'])
+def delete_marker(id):
+    print(request.form)
+    if request.method == 'PUT':
         marker_id = request.form['marker_id']
+        marker_info = Marker.get_marker({'id': marker_id})
+        map_id = marker_info.maps_id
+        _map = Map.get_map_by_id({'id': map_id})
+
+        if _map.author != session['username']:
+            flash('You do not have permission to delete this marker' , 'invalidMapAuthor')
+            return redirect('/maps')
+         
         Marker.delete_marker({'id': marker_id})
-        return jsonify({'success': True})
+        return jsonify({'message': 'success'})

@@ -1,6 +1,5 @@
 <div id="Form__Container" class="col-11 mx-auto text-center">
     <div id="Login_Form_" class="p-3 mb-3 bg-white rounded-2">
-        <p class="text-secondary fw-semibold mb-1">Already a Trailblazer?</p>
         <h3 class="fw-bold mb-4">Login</h3>
         {% with messages = get_flashed_messages(with_categories = true) %}
             {% if messages %}
@@ -18,7 +17,7 @@
                     {% if submission %}
                     <input type="text" name="sorting" placeholder="Enter email or username" class="form-control" value="{{submission['sorting']}}">
                     {% else %}
-                    <input type="text" name="sorting" placeholder="Enter email or username" class="form-control">
+                    <input type="text" name="sorting" placeholder="Enter email or username" class="form-control" >
                     {% endif %}
                 </div>
             </div>

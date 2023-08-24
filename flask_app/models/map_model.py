@@ -26,11 +26,6 @@ class Map:
         query = "UPDATE maps SET name = %(name)s WHERE maps.id = %(id)s;"
         return connectToMySQL(cls.db).query_db(query, data)
 
-    @classmethod
-    def get_map(cls, data):
-        query = "SELECT * FROM maps WHERE maps.id = %(id)s;"
-        result = connectToMySQL(cls.db).query_db(query, data)
-        return cls(result[0])
     
     @classmethod
     def get_all_maps_by_user(cls, data):

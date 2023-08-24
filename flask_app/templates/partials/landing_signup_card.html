@@ -1,0 +1,43 @@
+{% block content%}
+
+<style>
+    .card {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s linear 0.5s, opacity 0.5s;
+    }
+    .show-card {
+        visibility: visible;
+        opacity: 1;
+        transition:right opacity 1s;
+    }
+    
+    #loginCard {
+        top: -465px;
+    }
+</style>
+<div id="RegCardHolder" 
+    class="col col-md-8 col-lg-6 mx-auto mt-5 slide-it">
+    <div style="height: 10vh;"></div>
+    <h2 class="text-white text-center fw-bold mb-3" > New Here?</h2>
+    
+    <div 
+        id="registerCard" 
+        class="col col-md-8 col-lg-6 mx-auto mt-5">
+        {% include "registration_form.html" %}
+    </div>
+    <h3 class="text-dark text-center fw-bold mb-3">Been Here Before?</h3>
+
+    <div id="Flex_Btns" class="d-flex justify-content-around">
+    <button 
+        id="loginBtn"
+        class="btn btn-lg btn-primary fw-semibold"            
+        hx-target="#RegCardHolder"
+        hx-swap="outerHTML transition:true"
+        hx-put= "/log_request">
+        Login</button>
+
+    </div>
+</div>
+
+{% endblock %}

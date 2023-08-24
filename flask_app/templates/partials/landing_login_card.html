@@ -1,0 +1,54 @@
+{% block content%}
+<style>
+@keyframes shake{
+0%,9%{
+transform: rotateZ(0);
+}
+15% {
+transform: rotatez (-15deg);}
+20% {
+transform: rotatez(10deg) ;}
+25% {
+transform: rotatez(-10deg) ;}
+30% {
+transform: rotatez(6deg);}
+35% {
+transform: rotatez (-4deg);}
+40%, 100% {
+transform: rotatez(0);}}
+#loginCard{
+    animation: shake 1s;
+}
+</style>
+
+{% with messages = get_flashed_messages(with_categories = true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'category5' %}
+                        <p class="alert alert-danger">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+<div id="LoginCardHolder" class="slide-it-back col col-md-8 m-auto col-lg-6 mx-auto mt-5 ">
+    <div style="height:15vh"></div>
+    <h2 class="text-white text-center fw-bold mb-3 ">Now It's A Party!</h2>
+    <div id="loginCard" class="col col-md-8 col-lg-6 mx-auto mt-5 row d-flex align-top">
+        {% include "login_form.html" %}
+    </div>
+    <h2 class="text-dark text-center fw-bold mb-3 ">Adventure Calls</h2>
+    <div id="Flex_Btns" class="d-flex justify-content-around">
+    <button 
+        id="registerBtn"
+        class="btn btn-lg btn-primary fw-semibold"            
+        hx-target="#LoginCardHolder"
+        hx-swap="outerHTML transition:true"
+        hx-put= "/reg_request"
+        hx-on= "badloginevent:loginCard.classList.Add('shake')"
+        Register</button>
+
+    </div>
+</div>
+
+{% endblock %}

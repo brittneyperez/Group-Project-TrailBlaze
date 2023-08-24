@@ -1,5 +1,5 @@
-from flask_app import app
-from flask import render_template, redirect, request, session, flash
+from flask_app import app, htmx
+from flask import render_template, redirect, request, session, flash, Markup
 from flask_app.models.user_model import User
 from flask_app.models.post_model import Posts
 from flask_app.models.like_model import Like
@@ -38,6 +38,12 @@ def create_user():
     session['username'] = request.form['username']
     return redirect('/user/dashboard')
 
+@app.route('/register/cookie')
+def cookie():
+   
+    return render_template('landing-page.html')
+
+
 # * LOGIN -------------------
 
 @app.route('/login')
@@ -54,9 +60,14 @@ def login_user():
     }
     if not user_in_db:
         flash('The information entered does not match our records. Please check and try again.', 'category5')
-        return redirect('/login')
-        # return render_template('landing-page.html', submission = submission)
-        
+        flash('If you do not have an account, you can register for one  at the below!', 'category5')
+        flash(Markup('<a href="/register/cookie" HX-Trigger-After-Settle: document.getElementById("loginBtn").click()>Join the Adventure!</a>'),'category5')
+
+        # return redirect('/login')
+        # response = render_template('landing_login_card.html', submission = submission,)
+        # response.headers['HX-TRIGGER'] = 'badloginevent'
+
+        return render_template('login-page.html', submission = submission)
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
         flash('The information entered does not match our records. Please check and try again.', 'category5')
         return redirect('/login')
@@ -66,13 +77,21 @@ def login_user():
     print(session['username'])
     return redirect('/user/dashboard')
 
+@app.route('/reg_request', methods = ['PUT'])
+def reg_request():
+    return render_template('/partials/landing_signup_card.html')
+
+@app.route('/log_request', methods = ['PUT'])
+def log_request():
+    return render_template('/partials/landing_login_card.html')
+
 
 # * HOME --------------------
 
 @app.route('/user/dashboard')
 def dashboard():
-    # if 'user_id' not in session:
-    #     return redirect('/login')
+    if 'user_id' not in session:
+        return redirect('/')
     user_id = session['user_id']
     posts = Posts.all_posts()
     for post in posts:
