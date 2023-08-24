@@ -105,24 +105,24 @@
         top: -465px;
     }
 </style>
-<div id="FlexDiv__LandingPg" class="col col-md-8 col-lg-6 mx-auto mt-5 slide-it-down ">
-    <div style="height:20vh"></div>
-    <h2 class="text-white text-center fw-bold mb-3 ">Welcome</h2>
-    <div id="Flex_Btns" class="d-flex justify-content-center gap-3">
-        <button id="registerBtn" class="btn btn-lg btn-light fw-semibold"
-                hx-target="#FlexDiv__LandingPg"" 
-                hx-swap-oob="true" 
-                hx-swap="outerHTML transition:true"" 
-                hx-put="/reg_request" 
-                hx-on:after-request="document.getElementById('FlexDiv__LandingPg').classList.add('card');">Register</button>
-        <button id="loginBtn"class="btn btn-lg btn-light fw-semibold"
-                hx-target="#FlexDiv__LandingPg"" 
-                hx-swap-oob="true" 
-                hx-swap="outerHTML transition:true"" 
-                hx-put="/log_request" 
-                hx-on:after-request="document.getElementById('FlexDiv__LandingPg').classList.add('card');">Login</button>
+    <div id="FlexDiv__LandingPg" class="col col-10 mx-auto mt-5 slide-it-down ">
+        <div style="height:20vh"></div>
+        <h2 class="text-white text-center fw-bold mb-3 ">Welcome</h2>
+        <div id="Flex_Btns" class="d-flex justify-content-center gap-3">
+            <button id="registerBtn" class="btn btn-lg btn-light fw-semibold"
+                    hx-target="#FlexDiv__LandingPg"
+                    hx-swap-oob="true" 
+                    hx-swap="outerHTML transition:true"
+                    hx-put="/reg_request" 
+                    hx-on:after-request="document.getElementById('FlexDiv__LandingPg').classList.add('card');">Register</button>
+            <button id="loginBtn"class="btn btn-lg btn-light fw-semibold"
+                    hx-target="#FlexDiv__LandingPg"
+                    hx-swap-oob="true" 
+                    hx-swap="outerHTML transition:true"
+                    hx-put="/log_request" 
+                    hx-on:after-request="document.getElementById('FlexDiv__LandingPg').classList.add('card');">Login</button>
+        </div>
     </div>
-</div>
 </div>
 
 {% endblock %}

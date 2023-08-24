@@ -10,13 +10,8 @@ bcrypt = Bcrypt(app)
 #* Welcome Trailblazer!
 @app.route('/')
 def index():
-    return render_template('landing-page.html')
-
-# ! FOR TESTING PURPOSES -- 
-@app.route('/dashboard/sample')
-def dashboard_test():
-    return render_template("dashboard-hardcoded.html")
-# ? If design is approved, funtionality will be moved here and is renamed as dashboard.html
+    return render_template('landing-page_COPY_V2.html')
+    # return render_template('landing-page.html')
 
 
 # * REGISTER ----------------

@@ -31,22 +31,22 @@ transform: rotatez(0);}}
             {% endif %}
         {% endwith %}
 
-<div id="LoginCardHolder" class="slide-it-back col col-md-8 m-auto col-lg-6 mx-auto mt-5 ">
+<div id="LoginCardHolder" class="slide-it-back col col-md-10 mx-auto mt-5 ">
     <div style="height:15vh"></div>
     <h2 class="text-white text-center fw-bold mb-3 ">Now It's A Party!</h2>
-    <div id="loginCard" class="col col-md-8 col-lg-6 mx-auto mt-5 row d-flex align-top">
+    <div id="loginCard" class="col col-md-10 mx-auto mt-5 row d-flex align-top">
         {% include "login_form.html" %}
     </div>
     <h2 class="text-dark text-center fw-bold mb-3 ">Adventure Calls</h2>
     <div id="Flex_Btns" class="d-flex justify-content-around">
     <button 
         id="registerBtn"
-        class="btn btn-lg btn-primary fw-semibold"            
+        class="btn btn-lg btn-light fw-semibold"            
         hx-target="#LoginCardHolder"
         hx-swap="outerHTML transition:true"
         hx-put= "/reg_request"
         hx-on= "badloginevent:loginCard.classList.Add('shake')"
-        Register</button>
+        >Register</button>
 
     </div>
 </div>
