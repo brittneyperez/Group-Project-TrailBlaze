@@ -151,11 +151,11 @@ def add_marker():
     }
     map_stops = Map.stops_by_map(map_stops_data)
     print('MAP STOPS ARE ', map_stops)
-    return jsonify({'success': True})
+    return jsonify({'success': True}, {'marker_id': map_stops[-1]['marker_id']})
 
-@app.route('/delete_marker', methods=['POST'])
+@app.route('/delete_marker', methods=['DELETE'])
 def delete_marker():
-    marker_id = request.form['marker_id']
-    print('marker id is ', marker_id)
-    Marker.delete_marker({'id': marker_id})
-    return jsonify({'success': True})
+    if htmx:
+        marker_id = request.form['marker_id']
+        Marker.delete_marker({'id': marker_id})
+        return jsonify({'success': True})

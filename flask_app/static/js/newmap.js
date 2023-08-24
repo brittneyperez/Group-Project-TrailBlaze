@@ -6,6 +6,7 @@ function get_user_loc(){
 }
 let map, infoWindow;
 let markers = [];
+let pins = [];
 let markerListBodyElement;
 let autocomplete;
 
@@ -132,9 +133,7 @@ function confirmAddMarker(lat,lng, address) {
   closeInfoWindow();
   updateMarkerListBody();
   addMarkerToDatabase(lat, lng, address);
-  markers= [];  
 }
-
 function addMarker(lat, lng, title) {
   const marker = new google.maps.Marker({
     position: { lat, lng },
@@ -145,11 +144,20 @@ function addMarker(lat, lng, title) {
   });
   markers.push(marker);
 }
-
-
 function updateMarkerListBody() {
   if (markerListBodyElement) {
-    markerListBodyElement.innerHTML += markers.map((marker) => `<tr><td><button class='btn btn-sm btn-danger'> X </button></td><td> ${marker.title}</td><td> ${marker.lat.toFixed(2)}</td><td>  ${marker.lng.toFixed(2)}</td></tr>`)
+    markerListBodyElement.innerHTML += markers.map((marker) => `
+    <tr>
+      <td>
+        <a href="/delete_marker" <button class='btn btn-sm btn-danger'> X </button></a>
+      </td>
+        <td> ${marker.title}</td>
+        <td> ${marker.lat.toFixed(2)}</td>
+        <td> ${marker.lng.toFixed(2)}</td>
+      </tr>
+    <input type="hidden" name="lat" value="${marker.lat}">
+    <input type="hidden" name="lng" value="${marker.lng}">
+    <input type="hidden" name="address" value="${marker.title}">`)
     .join("");
 
 }

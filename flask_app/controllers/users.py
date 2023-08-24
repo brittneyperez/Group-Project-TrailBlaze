@@ -48,9 +48,12 @@ def login_page():
 @app.route('/login/user', methods = ['POST'])
 def login_user():
     user_in_db = User.find_email(request.form)
+    submission ={
+        'sorting': request.form['sorting'],
+    }
     if not user_in_db:
         flash('The information entered does not match our records. Please check and try again.', 'category5')
-        return redirect('/login')
+        return render_template('login-page.html', submission = submission)
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
         flash('The information entered does not match our records. Please check and try again.', 'category5')
         return redirect('/login')
