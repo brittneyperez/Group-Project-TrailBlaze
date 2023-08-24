@@ -102,19 +102,22 @@ def show_user_map(username, map_id):
             stop_list.append(stop_data)
         return render_template('newmap.html', key=key, data=data, stops=stop_list, map=map_data)
     
-@app.route('/maps/<string:username>/<int:map_id>/delete')
+@app.route('/maps/<string:username>/<int:map_id>/delete', methods=['POST', 'GET', 'DELETE'])
 def delete_map(username, map_id):
     if username != session['username']:
         flash('You do not have permission to delete this map' , 'invalidMapAuthor')
         return redirect('/maps')
+    Marker.delete_all_markers_by_map({'map_id': map_id})
     Map.delete_map({'id': map_id})
     return redirect('/maps')
+    
     
 @app.route('/maps/<string:username>/<int:map_id>/rename' , methods=['POST', 'GET', 'PUT'])
 def rename_map(username, map_id):
     if username != session['username']:
         flash('You do not have permission to rename this map' , 'invalidMapAuthor')
         return redirect('/maps')
+
     if htmx:
         print('HTMX IS TRUE')
         if request.method == 'GET':

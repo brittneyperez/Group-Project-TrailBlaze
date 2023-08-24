@@ -136,4 +136,9 @@ class Marker:
     def delete_marker(cls, data):
         query = "DELETE FROM markers WHERE markers.id = %(id)s;"
         return connectToMySQL(cls.db).query_db(query, data)
+    
+    @classmethod
+    def delete_all_markers_by_map(cls, data):
+        query = "DELETE FROM markers WHERE markers.maps_id = %(map_id)s;"
+        return connectToMySQL(cls.db).query_db(query, data)
 
