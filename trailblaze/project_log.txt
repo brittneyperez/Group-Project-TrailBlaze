@@ -187,6 +187,15 @@ Pending Functionality:
 
 Adrian - 22 Aug, 2:38pm
 - Adjusted username regex to exclude all special characters except - and _
+Ibrahim - 22aug, 530pm
+
+not merged yet
+
+- marker creation on map now enters marker into database
+- map model now has function stops_by_map that retrieves all markers with given map id and returns them as a list
+- adjusted the styling on #position-btn in maps.html from 5 to 5.5rem to compensate for the margin starting from the top of the button rather than the center
+- added flash and user validation when session['username'] does not match maps/USERNAME/id 
+- 
 
 Bri - 24 Aug, ~3am
 - Initialized styles for "landing-page.html" (previously "landing.html")

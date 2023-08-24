@@ -46,7 +46,15 @@
                                 <td class="col">
                                     <h5>{{ post.title }}</h5>
                                     <div class="col d-lg-flex justify-content-lg-between gap-lg-3">
+                                        
+                                        
+                                        {% if post.image %}
+                                        <img src="../static/post_imgs/{{post.image}}" alt="img-placeholder" class="col-11 col-md-4 order-1 order-md-2" style="height: 100px;"> 
+                                        
+                                        {% else %}
                                         <img src="../static/imgs/abstract-user-flat.png" alt="img-placeholder" class="img-fluid mx-auto d-flex align-self-center col-12 col-lg-4 order-1 order-lg-2" style="max-width: 150px; max-height: 150px;">
+                                        
+                                        {% endif %}
                                         
                                         <!-- ! conditional jinja needed to confirm if an img upload exists (may need adjusting)
                                         {% if image_exists %}

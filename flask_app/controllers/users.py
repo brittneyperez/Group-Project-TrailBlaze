@@ -5,7 +5,7 @@ from flask_app.models.post_model import Posts
 from flask_app.models.like_model import Like
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
-
+import base64
 
 #* Welcome Trailblazer!
 @app.route('/')
@@ -76,8 +76,21 @@ def dashboard():
     user_id = session['user_id']
     posts = Posts.all_posts()
     for post in posts:
+        print('POST LOOP', post.image)
         post.like_count = Like.get_like_count_for_post(post.id)
         post.liked_by_user = Like.check_user_liked_post(user_id, post.id)
+        print('POST IMAGE', post.image)
+        # if post.image != None:
+        #     print('POST IMAGE', post.image)
+        #     bytes_data = post.image
+        #     base64_data = base64.b64encode(bytes_data).decode('utf-8')
+        #     post.image = base64_data
+        #     print(base64_data)
+            # print(type(post.image))
+            # str_data = post.image.decode('utf-8')
+            # post.image = str_data
+            # print(type(post.image))
+        # print('POST IMAGE TYPE', type(post.image))
     return render_template('dashboard.html', posts = posts)
 
 # * LOGOUT ------------------

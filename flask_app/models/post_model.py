@@ -5,7 +5,7 @@ from flask_app.models.user_model import User
 
 
 class Posts:
-    my_db = "trailblaze_schema"
+    my_db = "trailblaze_schemaV2"
     def __init__(self, post_data):
         self.id = post_data['id']
         self.title = post_data['title']
@@ -66,5 +66,14 @@ class Posts:
             is_valid = False
         if len(post_data['text_content']) < 5:
             flash("Text content must be at least 5 characters")
+            is_valid = False
+        return is_valid
+    
+    @staticmethod
+    def validate_image(post_filename):
+        is_valid = True
+        ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+        if post_filename.rsplit('.',1)[1].lower() not in ALLOWED_EXTENSIONS:
+            flash('Incorrect file type, plase select png, jpg, jpeg, or gif file')
             is_valid = False
         return is_valid
