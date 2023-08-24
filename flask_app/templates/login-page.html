@@ -32,7 +32,11 @@
                         <!-- Email/Username Input -->
                         <div id="User_Input__Flex_Div" class="form-group row px-3 mb-3">
                             <div class="col">
+                                {% if submission %}
+                                <input type="text" name="sorting" placeholder="Enter email or username" class="form-control" value="{{submission['sorting']}}">
+                                {% else %}
                                 <input type="text" name="sorting" placeholder="Enter email or username" class="form-control">
+                                {% endif %}
                             </div>
                         </div>
                         <!-- Password Input -->
