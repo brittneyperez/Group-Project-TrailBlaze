@@ -199,3 +199,9 @@ Pending:
     - display the poster's username
     - to check if the post has file upload, otherwise the post_content should take up its container
     - if pfp is implemented, set a default user-pfp. Only show the user's pfp if they upload their own.
+
+Bri - 24 Aug, ~3am
+- increased responsiveness of new-post.html
+- updated edit-post.html to follow same template as new-post.html
+
+Pending:

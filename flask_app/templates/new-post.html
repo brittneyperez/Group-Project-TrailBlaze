@@ -19,7 +19,7 @@
 <div class="container-fluid flex-grow-1">
     <div id="Create_Post__Page" class="row d-flex justify-content-center">
         <h2 class="text-white text-center fw-bold mb-3">Create a New Post</h2>
-        <div id="Form_Page" class="col-11 col-sm-8 col-lg-6 p-3 mb-3 bg-white rounded-2 text-center">
+        <div id="Form_Page" class="col-11 col-md-8 mx-auto bg-white rounded-2 p-5 pt-4 text-center">
             <div>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -42,7 +42,7 @@
                 <div id="PostContent_Input__Flex_Div" class="form-group row px-3 mb-3">
                     <label for="content" class="form-label fw-semibold">Post Content:</label>
                     <div class="col">
-                        <textarea class="form-control" id="content" name="text_content" rows=""></textarea>
+                        <textarea class="form-control" id="content" name="text_content" rows="5"></textarea>
                     </div>
                 </div>
                 <!-- File Upload Input -->
