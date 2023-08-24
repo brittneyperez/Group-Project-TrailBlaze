@@ -52,12 +52,14 @@ def validate_edit(id):
     Posts.update_post(data)
     return redirect('/user/dashboard')
 
-@app.route('/post/delete/<int:id>', methods=['DELETE'])
+@app.route('/post/delete/<int:id>', methods=['POST', 'GET'])
 def delete_one_post(id):
-    # if 'user_id' not in session:
-    #     return redirect('/')
-    Posts.delete_post({'id' : id})
-    return redirect('/user/dashboard')
+    if request.method == 'POST':
+        if 'user_id' not in session:
+            return redirect('/')
+        Posts.delete_post({'id': id})
+        return redirect('/user/dashboard')
+    return redirect('/user/dashboard') 
 
 @app.route('/post/<int:post_id>/comments', methods=['GET', 'POST'])
 def post_comments(post_id):

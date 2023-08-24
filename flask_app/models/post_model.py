@@ -2,6 +2,7 @@ from flask_app import app
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_app.models.user_model import User
+from flask_app.models.like_model import Like
 
 
 class Posts:
@@ -55,9 +56,18 @@ class Posts:
 
     @classmethod
     def delete_post(cls, data):
+        # Retrieve the list of likes associated with the post
+        likes_query = "SELECT id FROM likes WHERE post_id = %(id)s"
+        likes_to_delete = connectToMySQL(cls.my_db).query_db(likes_query, data)
+
+        # Delete the associated likes
+        for like in likes_to_delete:
+            Like.delete_like({'id': like['id']})  # Assuming you have a delete_like method in your Likes class
+
+        # Delete the post
         query = "DELETE FROM posts WHERE posts.id = %(id)s;"
         return connectToMySQL(cls.my_db).query_db(query, data)
-
+    
     @staticmethod
     def validate_post(post_data):
         is_valid = True
