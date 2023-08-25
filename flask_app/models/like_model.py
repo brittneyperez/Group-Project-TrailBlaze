@@ -4,7 +4,7 @@ from flask import flash
 from flask_app.models.user_model import User
 
 class Like:
-    my_db = "trailblaze_schema"
+    my_db = "trailblaze_schemaV2"
 
     def __init__(self, like_data):
         self.id = like_data['id']

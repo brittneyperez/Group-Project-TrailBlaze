@@ -93,7 +93,7 @@ class Map:
 
     
 class Marker:
-    db = "trailblaze_schema"
+    db = "trailblaze_schemaV2"
     def __init__(self, data):
         self.id = data['id']
         self.latitude = data['latitude']

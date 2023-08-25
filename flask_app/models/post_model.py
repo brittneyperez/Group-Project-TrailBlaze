@@ -5,7 +5,7 @@ from flask_app.models.user_model import User
 
 
 class Posts:
-    my_db = "trailblaze_schema"
+    my_db = "trailblaze_schemaV2"
     def __init__(self, post_data):
         self.id = post_data['id']
         self.title = post_data['title']
